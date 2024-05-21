@@ -1,7 +1,60 @@
+$primary: #fefafa;
+$secondary: #FFD5C2;
+$info: #588B8B;
+
 $theme-colors: (
-    "primary": #F8E9F2,
-    "secondary": #FFD5C2,
-    "info": #588B8B
+    "primary": $primary,
+    "secondary": $secondary,
+    "info": $info
 );
 
+//$font-family-base: 'Times New Roman';
+
 @import "../node_modules/bootstrap/scss/bootstrap";
+
+body {
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    background-color: $primary;
+}
+
+app-root {
+    display: inline-block;
+    height: inherit;
+    width: inherit;
+    margin: inherit;
+    padding: inherit;
+}
+
+.category-img {
+    //max-height: 350px;
+    aspect-ratio: 3/1;
+    width: 100%;
+}
+
+.category-desc {
+    position: absolute;
+    background-color: $secondary;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    height: 5rem;
+}
+
+.h-line {
+    display: flex;
+    flex-grow: 1;
+    gap: 1rem;
+    height: 2px;
+    width: auto;
+    background-color: rgba(64, 64, 64, 0.6);
+}
+/* Importing Bootstrap SCSS file. */
+@import 'bootstrap/scss/bootstrap';
