@@ -21,7 +21,7 @@ export class CategoryCardComponent {
 	products: Array<product> | undefined;
 
 	constructor(public _ps: ProductService, public _as: AuthService) {
-		this._ps.getByType('https://localhost:7087/api/Product').subscribe({
+		this._ps.getByType('Product').subscribe({
 			next: (response) => {
 				this.products = response;
 			}

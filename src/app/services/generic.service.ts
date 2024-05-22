@@ -8,37 +8,39 @@ import { AuthService } from "./auth.service";
 })
 
 export class GenericService<T> {
-    constructor(private http: HttpClient, private as: AuthService) {
+    baseRoot: string = 'http://localhost:5064/api/';
+
+    constructor(protected http: HttpClient, protected as: AuthService) {
         
     }
 
     getAll(url: string): Observable<Array<T>> {
-        return this.http.get<Array<T>>(url, { 
+        return this.http.get<Array<T>>(this.baseRoot + url, { 
             headers: new HttpHeaders("Authorization: " + this.as.getAuthHeader())
         });
     }
 
     getSingle(url: string): Observable<T> {
-        return this.http.get<T>(url, { 
+        return this.http.get<T>(this.baseRoot + url, { 
             headers: new HttpHeaders("Authorization: " + this.as.getAuthHeader())
         });
     }
 
     getByType(url: string): Observable<Array<T>> {
-        return this.http.get<Array<T>>(url, { 
+        return this.http.get<Array<T>>(this.baseRoot + url, { 
             headers: new HttpHeaders("Authorization: " + this.as.getAuthHeader())
         });
     }
 
     post(url: string, model: T): Observable<T> {
-        return this.http.post<T>(url, model);
+        return this.http.post<T>(this.baseRoot + url, model);
     }
 
     put(url: string, model: T): Observable<T> {
-        return this.http.put<T>(url, model);
+        return this.http.put<T>(this.baseRoot + url, model);
     }
 
     delete(url: string): Observable<T> {
-        return this.http.delete<T>(url);
+        return this.http.delete<T>(this.baseRoot + url);
     }
 }
