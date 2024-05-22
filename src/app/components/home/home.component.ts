@@ -16,9 +16,9 @@ import { CommonModule } from '@angular/common';
 })
 export class HomeComponent {
 	productTypes: Array<element> | undefined;
-	//TODO: route in interfaccia o classe
+	
 	constructor(public _pts: ProductTypeService, public _as: AuthService) {
-		this._pts.getAll('https://localhost:7087/api/ProductType').subscribe({
+		this._pts.getAll('ProductType').subscribe({
 			next: (response) => {
 				this.productTypes = response;
 			}

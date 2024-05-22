@@ -1,3 +1,4 @@
-<app-header [title]="title"></app-header>
-<app-home></app-home>
+<app-header [title]="title" (loginBtnClicked)="showLoginPage($event)"></app-header>
+<app-login *ngIf="isInLoginPage"></app-login>
+<app-home *ngIf="!isInLoginPage"></app-home>
 <app-footer></app-footer>

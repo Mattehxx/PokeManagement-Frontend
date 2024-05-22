@@ -6,6 +6,7 @@ export interface login {
 export interface loginResult {
     token: string;
     expiration: Date;
+    role: string;
 }
 
 export interface register {
