@@ -33,14 +33,20 @@ export class GenericService<T> {
     }
 
     post(url: string, model: T): Observable<T> {
-        return this.http.post<T>(this.baseRoot + url, model);
+        return this.http.post<T>(this.baseRoot + url, model, { 
+            headers: new HttpHeaders("Authorization: " + this.as.getAuthHeader())
+        });
     }
 
     put(url: string, model: T): Observable<T> {
-        return this.http.put<T>(this.baseRoot + url, model);
+        return this.http.put<T>(this.baseRoot + url, model, { 
+            headers: new HttpHeaders("Authorization: " + this.as.getAuthHeader())
+        });
     }
 
     delete(url: string): Observable<T> {
-        return this.http.delete<T>(this.baseRoot + url);
+        return this.http.delete<T>(this.baseRoot + url, { 
+            headers: new HttpHeaders("Authorization: " + this.as.getAuthHeader())
+        });
     }
 }

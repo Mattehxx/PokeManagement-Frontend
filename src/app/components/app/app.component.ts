@@ -18,7 +18,9 @@ export class AppComponent {
 	title: string = 'Fast & Foodious';
 	isInLoginPage: boolean = false;
 
-	constructor(public as: AuthService) { }
+	constructor(public as: AuthService) {
+		this.as.getUserRole();
+	}
 
 	showLoginPage(retIsInLoginPage: boolean) {
 		this.isInLoginPage = retIsInLoginPage;

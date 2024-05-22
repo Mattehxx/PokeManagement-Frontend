@@ -21,11 +21,16 @@ export class LoginComponent {
 	doLogin() {
 		this.as.login(this.user).subscribe({
 			next: (response) => {
+				this.as.username = this.user.username;
 				console.log(response);
 			},
 			error: (error) => {
 				console.error(error);
 			}
 		})
+	}
+
+	doLogout() {
+		this.as.logout();
 	}
 }

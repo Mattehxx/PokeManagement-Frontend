@@ -18,6 +18,7 @@ export class AuthService {
     login(model: login): Observable<loginResult> {
         return this.http.post<loginResult>(`${this.baseRoot}login`, model).pipe(tap(result => {
             localStorage.setItem('login', JSON.stringify(result));
+            this.getUserRole();
         }));
     }
 
@@ -58,7 +59,7 @@ export class AuthService {
         if(!parsedJSON)
             return false;
 
-        if (Date.parse(parsedJSON.expiration.toISOString()) <= Date.now())
+        if (Date.parse(parsedJSON.expiration) <= Date.now())
             return false;
 
         return true;
@@ -72,7 +73,7 @@ export class AuthService {
         if(!parsedJSON)
             return;
 
-        switch(parsedJSON.role) {
+        switch(parsedJSON.userRole) {
             case 'Admin':
                 this.isAdmin = true;
                 break;
