@@ -19,6 +19,7 @@ export class AuthService {
         return this.http.post<loginResult>(`${this.baseRoot}login`, model).pipe(tap(result => {
             localStorage.setItem('login', JSON.stringify(result));
             this.getUserRole();
+            this.username = model.username;
         }));
     }
 
