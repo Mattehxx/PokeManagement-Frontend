@@ -37,14 +37,32 @@ app-home {
     margin-bottom: 2rem;
 }
 
+app-header {
+    position: sticky;
+    top: 0;
+    z-index: 1020;
+}
+
 app-footer {
     margin-top: auto;
+    position: sticky;
+    top: 0;
+    z-index: 1020;
 }
 
 .category-img {
     //max-height: 350px;
     aspect-ratio: 3/1;
     width: 100%;
+}
+
+.product-img {
+    aspect-ratio: 1/1;
+    width: 100%;
+}
+
+app-product-card {
+    flex: 0 0 25%;
 }
 
 .category-desc {

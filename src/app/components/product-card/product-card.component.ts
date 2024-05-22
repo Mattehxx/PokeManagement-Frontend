@@ -9,7 +9,13 @@ import { product } from '../../models/product.model';
 	styleUrl: './product-card.component.scss'
 })
 export class ProductCardComponent {
-	@Input() product: product | undefined;
+	@Input() product: product = {
+		productId: 0,
+		name: 'default',
+		description: 'default',
+		price: 0,
+		isDeleted: false
+	};
 
 	
 }

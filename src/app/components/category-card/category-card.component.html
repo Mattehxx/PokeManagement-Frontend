@@ -1,14 +1,16 @@
-<div class="d-flex flex-column justify-content-center align-items-center" data-bs-toggle="collapse" (click)="isCollapsed = !isCollapsed"
-    style="cursor: pointer;">
+<div class="d-flex flex-column justify-content-center align-items-center">
 
-    <img src="/assets/img/productTypes/{{productType.description}}.jpg" class="category-img" style="width: 100%;" />
+    <img src="/assets/img/productTypes/{{productType.description}}.jpg" class="category-img" style="width: 100%;" 
+        data-bs-toggle="collapse" (click)="toggleCollapse();" style="cursor: pointer;"/>
     <div class="d-flex justify-content-center align-items-center gap-3 px-3 w-100">
         <div class="h-line bg-secondary"></div>
         <h2 class="d-flex justify-content-center text-info m-0">{{productType.description}}</h2>
         <div class="h-line bg-secondary"></div>
     </div>
 
-    <div class="mt-2" #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
-        <app-product-card *ngFor="let product of products" [product]="product"></app-product-card>
+    <div class="mt-3" #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
+        <div class="d-flex flex-row justify-content-around align-items-center gap-3 flex-wrap">
+            <app-product-card *ngFor="let product of products" [product]="product"></app-product-card>
+        </div>
     </div>
 </div>

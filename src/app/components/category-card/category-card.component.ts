@@ -21,7 +21,17 @@ export class CategoryCardComponent {
 	products: Array<product> | undefined;
 
 	constructor(public _ps: ProductService, public _as: AuthService) {
-		this._ps.getByType('https://localhost:7087/api/Product').subscribe({
+		
+	}
+
+	toggleCollapse() {
+		this.isCollapsed = !this.isCollapsed;
+		if (!this.isCollapsed)
+			this.getProductsByType();
+	}
+
+	getProductsByType() {
+		this._ps.getByType(`Product/GetByCategoryId/${this.productType.id}`).subscribe({
 			next: (response) => {
 				this.products = response;
 			}
