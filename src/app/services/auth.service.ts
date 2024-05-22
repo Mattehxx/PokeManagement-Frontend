@@ -17,8 +17,12 @@ export class AuthService {
 
     login(model: login): Observable<loginResult> {
         return this.http.post<loginResult>(`${this.baseRoot}login`, model).pipe(tap(result => {
-            localStorage.setItem("login", JSON.stringify(result));
+            localStorage.setItem('login', JSON.stringify(result));
         }));
+    }
+
+    logout() {
+        localStorage.removeItem('login');
     }
 
     register(model: register): Observable<registerResult> {
