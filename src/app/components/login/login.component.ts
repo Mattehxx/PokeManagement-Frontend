@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { login } from '../../models/auth.model';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
+import { AlertService } from '../../services/alert.service';
 
 @Component({
 	selector: 'app-login',
@@ -16,12 +17,12 @@ export class LoginComponent {
 		password: ''
 	}
 
-	constructor(private as: AuthService) {}
+	constructor(private as: AuthService, public alert: AlertService) {}
 
 	doLogin() {
 		this.as.login(this.user).subscribe({
 			next: (response) => {
-				
+				this.alert.showSuccess('Accesso effettuato')
 			},
 			error: (error) => {
 				console.error(error);

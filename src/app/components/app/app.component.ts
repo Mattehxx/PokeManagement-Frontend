@@ -6,6 +6,8 @@ import { HomeComponent } from "../home/home.component";
 import { LoginComponent } from "../login/login.component";
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
+import Swal from 'sweetalert2';
+import { AlertService } from '../../services/alert.service';
 
 @Component({
 	selector: 'app-root',
@@ -18,7 +20,7 @@ export class AppComponent {
 	title: string = 'Fast & Foodious';
 	isInLoginPage: boolean = false;
 
-	constructor(public as: AuthService) {
+	constructor(public as: AuthService, public alert: AlertService) {
 		this.as.getUserRole();
 	}
 
