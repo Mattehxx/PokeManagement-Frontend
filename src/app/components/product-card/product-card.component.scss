@@ -1,0 +1,18 @@
+$primary: #588B8B;
+$secondary: #FFD5C2;
+$info: #fefafa;
+
+.product-img {
+    aspect-ratio: 1/1;
+    width: 100%;
+    border-bottom: 0.2rem solid $primary !important;
+}
+
+.product-card {
+    border: 0.2rem solid $primary !important;
+}
+
+.product-card-title {
+    overflow: hidden;
+    text-wrap: nowrap;
+}

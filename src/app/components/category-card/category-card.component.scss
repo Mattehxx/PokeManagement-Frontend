@@ -1,0 +1,19 @@
+$primary: #588B8B;
+$secondary: #FFD5C2;
+$info: #fefafa;
+
+.category-img {
+    //max-height: 350px;
+    aspect-ratio: 2.5/1;
+    width: 100%;
+}
+
+.category-desc {
+    position: absolute;
+    background-color: $secondary;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    margin: 0;
+    padding: 0;
+}
