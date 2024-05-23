@@ -1,7 +1,74 @@
+// $primary: #fefafa;
+// $secondary: #FFD5C2;
+// $info: #588B8B;
+
+$primary: #588B8B;
+$secondary: #FFD5C2;
+$info: #fefafa;
+
 $theme-colors: (
-    "primary": #F8E9F2,
-    "secondary": #FFD5C2,
-    "info": #588B8B
+    "primary": $primary,
+    "secondary": $secondary,
+    "info": $info
 );
 
-@import "../node_modules/bootstrap/scss/bootstrap";
+html {
+    font-size: 2rem !important;
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    background-color: $primary;
+}
+
+app-root {
+    display: inherit;
+    flex-direction: column;
+    min-height: inherit;
+    width: inherit;
+    margin: inherit;
+    padding: inherit;
+}
+
+app-home, app-login, app-register {
+    display: block;
+    min-height: calc(100% - 10rem);
+    padding: 1rem 0 1rem 0;
+}
+
+app-header {
+    position: sticky;
+    top: 0;
+    z-index: 1020;
+}
+
+app-footer {
+    position: sticky;
+    bottom: 0;
+    z-index: 1020;
+    margin-top: auto;
+}
+
+app-product-card {
+    width: 28%;
+}
+
+.h-line {
+    display: flex;
+    flex-grow: 1;
+    gap: 1rem;
+    height: 0.2rem;
+    width: auto;
+    background-color: rgba(64, 64, 64, 0.6);
+}
+
+.swal2-container {
+    width: 18rem !important;
+}
+
+/* Importing Bootstrap SCSS file. */
+@import 'bootstrap/scss/bootstrap';

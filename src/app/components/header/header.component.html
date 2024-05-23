@@ -1,19 +1,18 @@
-<nav class="navbar bg-primary sticky-top">
-    <div class="container-fluid d-flex justify-content-between align-content-center px-4">
+<nav class="navbar bg-info">
+    <div class="container-fluid d-flex justify-content-between align-content-center px-4 h-100">
         <a class="navbar-brand d-flex align-items-center" href="#">
             <img src="/assets/img/poke-bowl.png" class="d-inline-block align-text-top header-img me-2">
-            Poke management
+            <h1 class="m-0">{{title}}</h1>
         </a>
-        Login
+        <button class="btn btn-primary btn-lg px-3" (click)="showLoginPage()">
+            <div *ngIf="!this.ps.isInLoginPage && !this.ps.isInRegisterPage" class="d-flex justify-content-center align-items-center gap-2">
+                <i class="fa fa-solid fa-user d-flex"></i>
+                <p class="d-flex m-0">{{this.as.userLogged?.username ? this.as.userLogged?.username : 'Accedi'}}</p>
+            </div>
+            <div *ngIf="this.ps.isInLoginPage || this.ps.isInRegisterPage" class="d-flex justify-content-center align-items-center gap-2">
+                <i class="fa fa-solid fa-arrow-left"></i>
+                <p class="d-flex m-0">Home</p>
+            </div>
+        </button>
     </div>
 </nav>
-
-<div class="vh-100">
-    <p>Prova</p>
-    <p class="lead">
-        This is a lead paragraph. It stands out from regular paragraphs.
-      </p>
-      <blockquote class="blockquote">
-        <p>A well-known quote, contained in a blockquote element.</p>
-      </blockquote>
-</div>
