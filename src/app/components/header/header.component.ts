@@ -2,11 +2,14 @@ import { Component, EventEmitter, Injectable, Input, Output, input } from '@angu
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { PageService } from '../../services/page.service';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faArrowLeft, faBasketShopping, faUser } from '@fortawesome/free-solid-svg-icons';
+import { OrderService } from '../../services/order.service';
 
 @Component({
 	selector: 'app-header',
 	standalone: true,
-	imports: [CommonModule],
+	imports: [CommonModule, FontAwesomeModule],
 	templateUrl: './header.component.html',
 	styleUrl: './header.component.scss'
 })
@@ -16,7 +19,11 @@ import { PageService } from '../../services/page.service';
 export class HeaderComponent {
 	@Input() title = '';
 
-	constructor(public as: AuthService, public ps: PageService) { }
+	faBasket = faBasketShopping;
+	faUser = faUser;
+	faArrowLeft = faArrowLeft;
+
+	constructor(public as: AuthService, public ps: PageService, public os: OrderService) { }
 
 	showLoginPage() {
 		if(this.ps.isInLoginPage || this.ps.isInRegisterPage) {

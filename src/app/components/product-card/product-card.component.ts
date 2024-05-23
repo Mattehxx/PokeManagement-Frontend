@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { product } from '../../models/product.model';
+import { OrderService } from '../../services/order.service';
 
 @Component({
 	selector: 'app-product-card',
@@ -17,5 +18,5 @@ export class ProductCardComponent {
 		isDeleted: false
 	};
 
-	
+	constructor(public os: OrderService) {}
 }
