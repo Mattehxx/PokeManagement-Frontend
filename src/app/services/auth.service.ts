@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Observable, tap } from "rxjs";
-import { login, loginResult, register, registerResult } from "../models/auth.model";
+import { login, loginResult, register, registerResult, user } from "../models/auth.model";
 import { HttpClient } from "@angular/common/http";
 
 @Injectable({providedIn: 'any'})
@@ -8,10 +8,11 @@ import { HttpClient } from "@angular/common/http";
 export class AuthService {
     baseRoot: string = 'http://localhost:5064/api/Authentication/';
     isLogged: boolean = false;
-    username: string = 'Accedi';
     isAdmin: boolean = false;
     isOperator: boolean = false;
     isCustomer: boolean = false;
+
+    userLogged: user | undefined;
 
     constructor(private http: HttpClient) {}
 
@@ -19,8 +20,6 @@ export class AuthService {
         return this.http.post<loginResult>(`${this.baseRoot}login`, model).pipe(tap(result => {
             localStorage.setItem('login', JSON.stringify(result));
             this.getUserRole();
-            this.isLogged = true;
-            this.username = result.username;
         }));
     }
 
@@ -28,7 +27,7 @@ export class AuthService {
         try {
             localStorage.removeItem('login');
             this.isLogged = false;
-            this.username = 'Accedi';
+            this.userLogged = undefined;
             
             return true;
         } catch (error) {
@@ -46,6 +45,10 @@ export class AuthService {
 
     registerAdmin(model: register): Observable<registerResult> {
         return this.http.post<registerResult>(`${this.baseRoot}register-admin`, model);
+    }
+
+    getUserById(id: string): Observable<user> {
+        return this.http.get<user>(`${this.baseRoot}GetUser/${id}`);
     }
 
     private parseLoginToObject(): loginResult | undefined {
@@ -77,7 +80,15 @@ export class AuthService {
         }
 
         this.isLogged = true;
-        this.username = parsedJSON.username;
+
+        this.getUserById(parsedJSON.id).subscribe({
+            next: (response) => {
+                this.userLogged = response;
+            }, 
+            error: (error) => {
+                console.error(error);
+            }
+        });
 
         return true;
     }

@@ -8,6 +8,7 @@ export interface loginResult {
     expiration: string;
     role: string;
     username: string;
+    id: string;
 }
 
 export interface register {
@@ -22,4 +23,11 @@ export interface register {
 export interface registerResult {
     status: string;
     message: string;
+}
+
+export interface user {
+    name: string;
+    surname: string;
+    username: string;
+    email: string;
 }

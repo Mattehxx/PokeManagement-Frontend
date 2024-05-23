@@ -7,7 +7,7 @@
         <button class="btn btn-primary btn-lg px-3" (click)="showLoginPage()">
             <div *ngIf="!this.ps.isInLoginPage && !this.ps.isInRegisterPage" class="d-flex justify-content-center align-items-center gap-2">
                 <i class="fa fa-solid fa-user d-flex"></i>
-                <p class="d-flex m-0">{{this.as.username}}</p>
+                <p class="d-flex m-0">{{this.as.userLogged?.username ? this.as.userLogged?.username : 'Accedi'}}</p>
             </div>
             <div *ngIf="this.ps.isInLoginPage || this.ps.isInRegisterPage" class="d-flex justify-content-center align-items-center gap-2">
                 <i class="fa fa-solid fa-arrow-left"></i>
