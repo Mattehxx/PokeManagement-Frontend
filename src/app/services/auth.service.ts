@@ -19,12 +19,21 @@ export class AuthService {
         return this.http.post<loginResult>(`${this.baseRoot}login`, model).pipe(tap(result => {
             localStorage.setItem('login', JSON.stringify(result));
             this.getUserRole();
-            this.username = model.username;
+            this.isLogged = true;
+            this.username = result.username;
         }));
     }
 
-    logout() {
-        localStorage.removeItem('login');
+    logout(): boolean {
+        try {
+            localStorage.removeItem('login');
+            this.isLogged = false;
+            this.username = 'Accedi';
+            
+            return true;
+        } catch (error) {
+            return false;
+        }
     }
 
     register(model: register): Observable<registerResult> {
@@ -57,11 +66,18 @@ export class AuthService {
 
     isUserLogged(): boolean {
         let parsedJSON = this.parseLoginToObject();
-        if(!parsedJSON)
+        if(!parsedJSON) {
+            this.isLogged = true;
             return false;
+        }
 
-        if (Date.parse(parsedJSON.expiration) <= Date.now())
+        if (Date.parse(parsedJSON.expiration) <= Date.now()) {
+            this.isLogged = true;
             return false;
+        }
+
+        this.isLogged = true;
+        this.username = parsedJSON.username;
 
         return true;
     }
@@ -74,7 +90,7 @@ export class AuthService {
         if(!parsedJSON)
             return;
 
-        switch(parsedJSON.userRole) {
+        switch(parsedJSON.role) {
             case 'Admin':
                 this.isAdmin = true;
                 break;

@@ -1,19 +1,26 @@
 <div class="container container-login d-flex flex-column justify-content-center align-items-center">
-    <h1 class="login-title">Effettua l'accesso al tuo profilo
+    <h1 class="login-title">Effettua l'accesso al tuo profilo,
         avrai uno <strong>sconto esclusivo del 5%</strong> sul tuo ordine finale</h1>
     <div class="container-login-body bg-secondary d-flex flex-column justify-content-center align-items-center rounded-3">
-
         <div class="login-field d-flex flex-column justify-content-center align-items-start">
             <label class="login-label">Username</label>
-            <input type="text" class="login-input form-control" [(ngModel)]="user.username" required>
+            <input type="text" class="login-input form-control" 
+                [disabled]="this.as.isLogged" [(ngModel)]="user.username" required>
         </div>
 
         <div class="login-field d-flex flex-column justify-content-center align-items-start mt-lg-5">
             <label class="login-label">Password</label>
-            <input type="password" class="login-input form-control form-control-secondary" [(ngModel)]="user.password" required>
+            <input type="password" class="login-input form-control form-control-secondary" 
+                [disabled]="this.as.isLogged" [(ngModel)]="user.password" required>
         </div>
         
-        <button class="btn btn-primary btn-lg login-btn d-flex justify-content-center align-self-center w-75 mt-lg-5" (click)="doLogin()">Accedi</button>
-        
+        <button class="btn btn-primary btn-lg login-btn d-flex justify-content-center align-self-center w-75 mt-lg-5" 
+            [disabled]="this.as.isLogged" (click)="doLogin()">Accedi</button>
+    </div>
+
+    <div class="container-login-body d-flex justify-content-between align-items-center gap-5">
+        <button *ngIf="this.as.isLogged" class="btn btn-secondary btn-lg d-flex flex-grow-1 justify-content-center"
+            (click)="doLogout();">Disconnettiti</button>
+        <button *ngIf="!this.as.isLogged" class="btn btn-secondary btn-lg d-flex flex-grow-1 justify-content-center">Registrati</button>
     </div>
 </div>

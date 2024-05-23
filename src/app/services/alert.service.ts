@@ -12,9 +12,45 @@ export class AlertService {
             icon: 'success',
             title: 'Successo',
             text: message,
-            position: 'top-end',
+            position: 'top-start',
             showConfirmButton: false,
-            timer: 3000
+            timer: 2000
+        })
+    }
+
+    showError(message: string) {
+        Swal.fire({
+            toast: true,
+            icon: 'error',
+            title: 'Errore',
+            text: message,
+            position: 'top-start',
+            showConfirmButton: false,
+            timer: 2000
+        })
+    }
+
+    showWarning(message: string) {
+        Swal.fire({
+            toast: true,
+            icon: 'warning',
+            title: 'Attenzione',
+            text: message,
+            position: 'top-start',
+            showConfirmButton: false,
+            timer: 2000
+        })
+    }
+
+    showInfo(message: string) {
+        Swal.fire({
+            toast: true,
+            icon: 'info',
+            title: 'Info',
+            text: message,
+            position: 'top-start',
+            showConfirmButton: false,
+            timer: 2000
         })
     }
 }
