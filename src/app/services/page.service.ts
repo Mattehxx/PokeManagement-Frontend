@@ -5,4 +5,5 @@ import { Injectable } from "@angular/core";
 export class PageService {
     isInLoginPage: boolean = false;
     isInRegisterPage: boolean = false;
+    isInCartPage: boolean = false;
 }

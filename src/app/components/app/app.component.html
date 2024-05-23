@@ -1,5 +1,6 @@
 <app-header [title]="title"></app-header>
 <app-login *ngIf="this.ps.isInLoginPage"></app-login>
 <app-register *ngIf="!this.ps.isInLoginPage && this.ps.isInRegisterPage && !this.as.isLogged"></app-register>
-<app-home *ngIf="!this.ps.isInLoginPage && !this.ps.isInRegisterPage && !this.as.isAdmin"></app-home>
+<app-home *ngIf="!this.ps.isInLoginPage && !this.ps.isInRegisterPage && !this.as.isAdmin && !this.ps.isInCartPage"></app-home>
+<app-cart *ngIf="!this.ps.isInLoginPage && !this.ps.isInRegisterPage && !this.as.isAdmin && this.ps.isInCartPage"></app-cart>
 <app-footer></app-footer>

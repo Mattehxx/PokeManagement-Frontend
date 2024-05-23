@@ -1,0 +1,14 @@
+<div class="d-flex flex-column gap-4 justify-content-center p-4">
+    <div class="product-container d-flex flex-column justify-content-start align-items-center" *ngFor="let product of this.os.cart">
+        <div class="d-flex justify-content-between align-items-center w-100">
+            <h2 class="d-flex">{{product.name}}</h2>
+            <h2 class="d-flex">{{product.price}} €</h2>
+        </div>
+        <p class="d-flex w-100 mb-2">{{product.description}}</p>
+        <div class="h-line w-100 bg-primary"></div>
+        <h4 class="d-flex w-100">Ingredienti</h4>
+        
+    </div>
+
+    <button class="btn btn-primary btn-lg d-flex align-self-center justify-content-center align-items-center w-75">Conferma ordine</button>
+</div>

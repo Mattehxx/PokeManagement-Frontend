@@ -35,4 +35,8 @@ export class HeaderComponent {
 			this.ps.isInRegisterPage = false;
 		}
 	}
+
+	showCartPage() {
+		this.ps.isInCartPage = !this.ps.isInCartPage;
+	}
 }
