@@ -1,25 +1,31 @@
-import { Component, EventEmitter, Input, Output, input } from '@angular/core';
+import { Component, EventEmitter, Injectable, Input, Output, input } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
+import { PageService } from '../../services/page.service';
 
 @Component({
-  selector: 'app-header',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './header.component.html',
-  styleUrl: './header.component.scss'
+	selector: 'app-header',
+	standalone: true,
+	imports: [CommonModule],
+	templateUrl: './header.component.html',
+	styleUrl: './header.component.scss'
 })
+
+@Injectable({ providedIn: 'any' })
+
 export class HeaderComponent {
-  @Input() title = '';
+	@Input() title = '';
 
-  isInLoginPage: boolean = false;
+	constructor(public as: AuthService, public ps: PageService) { }
 
-  constructor(public as: AuthService) {}
-
-  @Output() loginBtnClicked: EventEmitter<boolean> = new EventEmitter<boolean>
-
-  showLoginPage() {
-    this.isInLoginPage = !this.isInLoginPage;
-    this.loginBtnClicked.emit(this.isInLoginPage);
-  }
+	showLoginPage() {
+		if(this.ps.isInLoginPage || this.ps.isInRegisterPage) {
+			this.ps.isInLoginPage = false;
+			this.ps.isInRegisterPage = false;
+		}
+		else {
+			this.ps.isInLoginPage = true;
+			this.ps.isInRegisterPage = false;
+		}
+	}
 }

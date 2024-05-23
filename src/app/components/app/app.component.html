@@ -1,4 +1,5 @@
-<app-header [title]="title" (loginBtnClicked)="showLoginPage($event)"></app-header>
-<app-login *ngIf="isInLoginPage"></app-login>
-<app-home *ngIf="!isInLoginPage && !this.as.isAdmin"></app-home>
+<app-header [title]="title"></app-header>
+<app-login *ngIf="this.ps.isInLoginPage"></app-login>
+<app-register *ngIf="!this.ps.isInLoginPage && this.ps.isInRegisterPage && !this.as.isLogged"></app-register>
+<app-home *ngIf="!this.ps.isInLoginPage && !this.ps.isInRegisterPage && !this.as.isAdmin"></app-home>
 <app-footer></app-footer>

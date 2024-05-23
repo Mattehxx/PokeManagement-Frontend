@@ -8,23 +8,22 @@ import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
 import { AlertService } from '../../services/alert.service';
+import { RegisterComponent } from "../register/register.component";
+import { PageService } from '../../services/page.service';
 
 @Component({
-	selector: 'app-root',
-	standalone: true,
-	templateUrl: './app.component.html',
-	styleUrl: './app.component.scss',
-	imports: [CommonModule, RouterOutlet, HeaderComponent, FooterComponent, HomeComponent, LoginComponent]
+    selector: 'app-root',
+    standalone: true,
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.scss',
+    imports: [CommonModule, RouterOutlet, HeaderComponent, FooterComponent, HomeComponent, LoginComponent, RegisterComponent]
 })
 export class AppComponent {
 	title: string = 'Fast & Foodious';
 	isInLoginPage: boolean = false;
+	isInRegisterPage: boolean = false;
 
-	constructor(public as: AuthService, public alert: AlertService) {
+	constructor(public as: AuthService, public alert: AlertService, public ps: PageService) {
 		this.as.getUserRole();
-	}
-
-	showLoginPage(retIsInLoginPage: boolean) {
-		this.isInLoginPage = retIsInLoginPage;
 	}
 }

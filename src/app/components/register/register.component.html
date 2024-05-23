@@ -1,0 +1,42 @@
+<div class="container container-login d-flex flex-column justify-content-center align-items-center">
+    <h1 class="login-title">Registrati per avere accesso,
+        ad uno <strong>sconto esclusivo del 5%</strong> sul tuo ordine finale</h1>
+    <div class="container-login-body bg-secondary d-flex flex-column justify-content-center align-items-center rounded-3">
+        <div class="login-field d-flex flex-column justify-content-center align-items-start">
+            <label class="login-label">Nome</label>
+            <input type="text" class="login-input form-control" [(ngModel)]="user.name" required>
+        </div>
+
+        <div class="login-field d-flex flex-column justify-content-center align-items-start">
+            <label class="login-label">Cognome</label>
+            <input type="text" class="login-input form-control" [(ngModel)]="user.surname" required>
+        </div>
+
+        <div class="login-field d-flex flex-column justify-content-center align-items-start">
+            <label class="login-label">Username</label>
+            <input type="text" class="login-input form-control" [(ngModel)]="user.username" required>
+        </div>
+
+        <div class="login-field d-flex flex-column justify-content-center align-items-start">
+            <label class="login-label">Email</label>
+            <input type="email" class="login-input form-control" [(ngModel)]="user.email" required>
+        </div>
+
+        <div class="login-field d-flex flex-column justify-content-center align-items-start">
+            <label class="login-label">Password</label>
+            <input type="password" class="login-input form-control" [(ngModel)]="user.password" required>
+        </div>
+
+        <div class="login-field d-flex flex-column justify-content-center align-items-start">
+            <label class="login-label">Ripeti password</label>
+            <input type="password" class="login-input form-control" [(ngModel)]="user.confirmPassword" required>
+        </div>
+        
+        <button class="btn btn-primary btn-lg login-btn d-flex justify-content-center align-self-center w-75 mt-5"
+            (click)="doRegister()">Registrati</button>
+    </div>
+
+    <!-- <div class="container-login-body d-flex justify-content-between align-items-center gap-5">
+        <button class="btn btn-secondary btn-lg d-flex flex-grow-1 justify-content-center">Accedi</button>
+    </div> -->
+</div>

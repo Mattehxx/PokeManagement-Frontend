@@ -67,12 +67,12 @@ export class AuthService {
     isUserLogged(): boolean {
         let parsedJSON = this.parseLoginToObject();
         if(!parsedJSON) {
-            this.isLogged = true;
+            this.isLogged = false;
             return false;
         }
 
         if (Date.parse(parsedJSON.expiration) <= Date.now()) {
-            this.isLogged = true;
+            this.isLogged = false;
             return false;
         }
 
