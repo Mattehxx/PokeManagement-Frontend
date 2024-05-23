@@ -66,5 +66,9 @@ app-product-card {
     background-color: rgba(64, 64, 64, 0.6);
 }
 
+.swal2-container {
+    width: 18rem !important;
+}
+
 /* Importing Bootstrap SCSS file. */
 @import 'bootstrap/scss/bootstrap';
