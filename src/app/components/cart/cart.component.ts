@@ -30,8 +30,4 @@ export class CartComponent {
 	getNotIncludedIngredients(product: productDetail): Array<productIngredient> {
 		return product.productIngredients.filter(i => !i.isIncluded);
 	}
-
-	addIngredient(product: productDetail , ingredient: productIngredient) {
-		this.os
-	}
 }

@@ -1,5 +1,5 @@
 <div class="d-flex flex-column gap-4 justify-content-center p-4">
-    <div class="product-container d-flex flex-column justify-content-start align-items-center gap-3"
+    <div class="product-container d-flex flex-column justify-content-start align-items-center gap-3 shadow"
         *ngFor="let product of this.os.cart">
         <div class="d-flex justify-content-between align-items-center w-100">
             <h1 class="d-flex">{{product.name}}</h1>
@@ -12,9 +12,9 @@
         <h2 class="d-flex w-100">Ingredienti inclusi</h2>
         <div class="d-flex justify-content-between align-items-center gap-3 w-100"
             *ngFor="let ingredient of getIncludedIngredients(product)">
-            <h4 class="d-flex w-25 overflow-hidden">{{ingredient.ingredientName}}</h4>
+            <h4 class="d-flex w-25 overflow-hidden m-0">{{ingredient.ingredientName}}</h4>
 
-            <p class="d-flex">{{ingredient.ingredientPrice}}€</p>
+            <p class="d-flex m-0">{{ingredient.ingredientPrice}}€</p>
 
             <div class="d-flex justify-content-between align-items-center gap-3">
                 <button class="btn btn-primary" [disabled]="ingredient.amount <= 0"
@@ -22,7 +22,7 @@
                     <fa-icon [icon]="faMinus"></fa-icon>
                 </button>
 
-                <h4 class="d-flex">{{ingredient.amount}} di {{ingredient.maxAllowed}}</h4>
+                <h4 class="d-flex m-0">{{ingredient.amount}} di {{ingredient.maxAllowed}}</h4>
 
                 <button class="btn btn-primary" [disabled]="ingredient.amount >= ingredient.maxAllowed"
                     (click)="this.os.addPersonalization(product, ingredient, 1)">
@@ -36,9 +36,9 @@
         <h2 class="d-flex w-100" *ngIf="getNotIncludedIngredients(product).length > 0">Ingredienti non inclusi</h2>
         <div class="d-flex justify-content-between align-items-center gap-3 w-100"
             *ngFor="let ingredient of getNotIncludedIngredients(product)">
-            <h4 class="d-flex w-25 overflow-hidden">{{ingredient.ingredientName}}</h4>
+            <h4 class="d-flex w-25 overflow-hidden m-0">{{ingredient.ingredientName}}</h4>
 
-            <p class="d-flex">{{ingredient.ingredientPrice}} €</p>
+            <p class="d-flex m-0">{{ingredient.ingredientPrice}} €</p>
 
             <div class="d-flex justify-content-between align-items-center gap-3">
                 <button class="btn btn-primary" [disabled]="ingredient.amount <= 0"
@@ -46,7 +46,7 @@
                     <fa-icon [icon]="faMinus"></fa-icon>
                 </button>
 
-                <h4 class="d-flex">{{ingredient.amount}} di {{ingredient.maxAllowed}}</h4>
+                <h4 class="d-flex m-0">{{ingredient.amount}} di {{ingredient.maxAllowed}}</h4>
 
                 <button class="btn btn-primary" [disabled]="ingredient.amount >= ingredient.maxAllowed"
                     (click)="this.os.addPersonalization(product, ingredient, 1)">
@@ -60,7 +60,15 @@
         <button class="btn btn-danger d-flex align-self-end" (click)="this.os.removeFromCart(product)">Rimuovi prodotto</button>
     </div>
 
-    <button
-        class="btn btn-primary btn-lg d-flex align-self-center justify-content-center align-items-center w-75">Conferma
-        ordine</button>
+    <div class="product-container d-flex flex-column justify-content-start align-items-center gap-3 shadow">
+        <div class="d-flex justify-content-between align-items-center w-100 gap-3">
+            <h1 class="d-flex m-0">Totale</h1>
+            <h1 class="d-flex m-0">{{this.os.getCurrentPrice()}} €</h1>
+        </div>
+        
+    
+        <button class="btn btn-primary btn-lg d-flex align-self-center justify-content-center align-items-center w-75">
+            Conferma ordine
+        </button>
+    </div>
 </div>

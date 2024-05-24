@@ -27,7 +27,7 @@ export class OrderService extends GenericService<product> {
         if (!this.cart)
             return 0;
 
-        return this.cart.map(p => p.price).reduce((partial, curr) => partial + curr, 0);
+        return this.roundTo2Decimal(this.cart.map(p => p.price).reduce((partial, curr) => partial + curr, 0));
     }
 
     getCurrentElements(): number {
@@ -56,12 +56,10 @@ export class OrderService extends GenericService<product> {
     addPersonalization(product: productDetail, ingredient: productIngredient, qty: number) {
         let index = this.personalizations.findIndex(p => p.productIngredientId == ingredient.id);
 
-        if(index != -1){
-            ingredient.amount += qty;
+        if(index != -1) {
             this.personalizations[index].amount = ingredient.amount;
         }
         else {
-            ingredient.amount += qty;
             let personalization: personalization = {
                 id: 0,
                 productCartId: product.productCartId,
@@ -72,6 +70,13 @@ export class OrderService extends GenericService<product> {
             this.personalizations.push(personalization);
         }
 
+        ingredient.amount += qty;
+        product.price = this.roundTo2Decimal(product.price + (ingredient.ingredientPrice * qty));
+
         console.log(this.personalizations);
+    }
+
+    private roundTo2Decimal(num: number) {
+        return Math.round((num + Number.EPSILON) * 100) / 100;
     }
 }
