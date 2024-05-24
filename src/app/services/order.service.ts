@@ -11,6 +11,7 @@ import { personalization } from "../models/personalization.model";
 import { orderDetail } from "../models/order-detail.model";
 import { order } from "../models/order.model";
 import { OrderTypeService } from "./order-type.service";
+import { PageService } from "./page.service";
 
 @Injectable({
     providedIn: "any" //serve come per creare un singleton
@@ -22,7 +23,7 @@ export class OrderService extends GenericService<order> {
     orderDetails: Array<orderDetail>;
     order: order | undefined;
 
-    constructor(http: HttpClient, as: AuthService, public alert: AlertService, public ps: ProductService, public ot: OrderTypeService) {
+    constructor(http: HttpClient, as: AuthService, public alert: AlertService, public ps: ProductService, public ot: OrderTypeService, public pageServ: PageService) {
         super(http, as);
         this.cart = [];
         this.personalizations = [];
@@ -120,15 +121,29 @@ export class OrderService extends GenericService<order> {
         };
 
         this.post(`Order/Add`, this.order).subscribe({
-            next: (response) => {
+            next: () => {
                 this.alert.showSuccess('Ordine eseguito correttamente');
-                console.log(response);
+                this.orderComplete();
             },
             error: (error) => {
                 this.alert.showError('Non è stato possibile esguire l\'ordine!');
                 console.error(error);
             }
         })
+    }
+
+    private orderComplete() {
+        if(!this.as.isOperator)
+            this.as.logout();
+
+        this.pageServ.isInCartPage = false;
+        this.pageServ.isInLoginPage = false;
+        this.pageServ.isInRegisterPage = false;
+
+        this.cart = [];
+        this.personalizations = [];
+        this.orderDetails = [];
+        this.order = undefined;
     }
 
     private roundTo2Decimal(num: number) {
