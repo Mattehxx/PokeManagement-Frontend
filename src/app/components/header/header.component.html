@@ -5,7 +5,7 @@
             <h1 class="m-0" style="font-size: 1.6rem;">{{title}}</h1>
         </a>
         <div class="d-flex justify-content-end align-items-center gap-3">
-            <button class="btn btn-primary btn-lg" id="btn-cart" [disabled]="this.os.getCurrentElements() === 0" (click)="showCartPage()">
+            <button class="btn btn-primary btn-lg" id="btn-cart" [disabled]="this.os.getCurrentElements() === 0 && !this.ps.isInCartPage" (click)="showCartPage()">
                 <i class="fa-solid fa-cart-shopping"></i>
                 {{this.os.getCurrentElements()}}
             </button>

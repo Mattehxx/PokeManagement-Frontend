@@ -7,6 +7,7 @@ import { HttpClient } from "@angular/common/http";
 import { AlertService } from "./alert.service";
 import { ProductService } from "./product.service";
 import { productIngredient } from "../models/product-ingredient.model";
+import { personalization } from "../models/personalization.model";
 
 @Injectable({
     providedIn: "any" //serve come per creare un singleton
@@ -14,11 +15,12 @@ import { productIngredient } from "../models/product-ingredient.model";
 
 export class OrderService extends GenericService<product> {
     cart: Array<productDetail>;
-    cartBtn = document.getElementById('btn-cart');
+    personalizations: Array<personalization>;
 
     constructor(http: HttpClient, as: AuthService, public alert: AlertService, public ps: ProductService) {
         super(http, as);
         this.cart = [];
+        this.personalizations = [];
     }
 
     getCurrentPrice(): number {
@@ -43,16 +45,33 @@ export class OrderService extends GenericService<product> {
                 this.alert.showError('Errore, riprovare più tardi!');
                 console.error(error);
             }
-        })
-        //this.alert.showInfo(`${product.name} aggiunto al carrello`);
+        });
     }
 
     removeFromCart(product: productDetail) {
         this.cart = this.cart?.filter(p => p.productCartId != product.productCartId);
-        //this.alert.showInfo(`${product.name} rimossso dal carrello`);
+        this.personalizations = this.personalizations.filter(p => p.productCartId != product.productCartId);
     }
 
-    addIngredient(product: productDetail , ingredient: productIngredient) {
-        
+    addPersonalization(product: productDetail, ingredient: productIngredient, qty: number) {
+        let index = this.personalizations.findIndex(p => p.productIngredientId == ingredient.id);
+
+        if(index != -1){
+            ingredient.amount += qty;
+            this.personalizations[index].amount = ingredient.amount;
+        }
+        else {
+            ingredient.amount += qty;
+            let personalization: personalization = {
+                id: 0,
+                productCartId: product.productCartId,
+                productIngredientId: ingredient.id,
+                amount: ingredient.amount
+            };
+    
+            this.personalizations.push(personalization);
+        }
+
+        console.log(this.personalizations);
     }
 }

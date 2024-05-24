@@ -11,6 +11,7 @@ export interface productIngredient {
     productId: number;
     ingredientId: number;
     ingredientName: string;
+    ingredientPrice: number;
     amount: number;
     maxAllowed: number;
     isIncluded: boolean;
