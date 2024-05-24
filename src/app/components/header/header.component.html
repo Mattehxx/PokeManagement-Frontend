@@ -4,19 +4,21 @@
             <img src="/assets/img/poke-bowl.png" class="d-inline-block align-text-top header-img me-2">
             <h1 class="m-0">{{title}}</h1>
         </a>
-        <button class="btn btn-primary btn-lg" id="btn-cart" [disabled]="this.os.getCurrentElements() === 0" (click)="showCartPage()">
-            <fa-icon [icon]="faBasket"></fa-icon>
-            {{this.os.getCurrentElements()}}
-        </button>
-        <button class="btn btn-primary btn-lg" (click)="showLoginPage()">
-            <div *ngIf="!this.ps.isInLoginPage && !this.ps.isInRegisterPage" class="d-flex justify-content-center align-items-center gap-2">
-                <fa-icon [icon]="faUser"></fa-icon>
-                <p class="d-flex m-0">{{this.as.userLogged?.username ? this.as.userLogged?.username : 'Accedi'}}</p>
-            </div>
-            <div *ngIf="this.ps.isInLoginPage || this.ps.isInRegisterPage" class="d-flex justify-content-center align-items-center gap-2">
-                <fa-icon [icon]="faArrowLeft"></fa-icon>
-                <p class="d-flex m-0">Home</p>
-            </div>
-        </button>
+        <div class="d-flex justify-content-end align-items-center gap-3">
+            <button class="btn btn-primary btn-lg" id="btn-cart" [disabled]="this.os.getCurrentElements() === 0" (click)="showCartPage()">
+                <fa-icon [icon]="faBasket"></fa-icon>
+                {{this.os.getCurrentElements()}}
+            </button>
+            <button class="btn btn-primary btn-lg" (click)="showLoginPage()">
+                <div *ngIf="!this.ps.isInLoginPage && !this.ps.isInRegisterPage" class="d-flex justify-content-center align-items-center gap-2">
+                    <fa-icon [icon]="faUser"></fa-icon>
+                    <p class="d-flex m-0">{{this.as.userLogged?.username ? this.as.userLogged?.username : 'Accedi'}}</p>
+                </div>
+                <div *ngIf="this.ps.isInLoginPage || this.ps.isInRegisterPage" class="d-flex justify-content-center align-items-center gap-2">
+                    <fa-icon [icon]="faArrowLeft"></fa-icon>
+                    <p class="d-flex m-0">Home</p>
+                </div>
+            </button>
+        </div>
     </div>
 </nav>
