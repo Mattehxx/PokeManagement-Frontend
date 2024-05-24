@@ -16,13 +16,18 @@ import { NgbdModalBasic } from "../../@modals-components/modal-confirm/modal-con
 })
 export class ProductAccordionComponent {
   @Input()
-  products: Array<productAdmin> = []
+  products: Array<productAdmin> = [];
+
   @Output()
-  productType: element ;
-  //productIngredients: Array<productIngredient> = []
   toEdit: productAdmin ;
 
+  
+  productType: element ;
+  //productIngredients: Array<productIngredient> = []
+  
+
   constructor(){
+    console.log(this.products);
     this.productType = {
       id: 0,
       description:""

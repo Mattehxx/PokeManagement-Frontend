@@ -24,11 +24,28 @@ export class ProductManagementComponent {
   desserts: Array<productAdmin> = [];
 
 
-
-
-
-
   getProducts() {
+    this.ProdService.getAll("Product").subscribe({
+      next: (data) => {
+        console.log(data);
+        this.drinks = data.filter(p=>p.productType.id == 1);
+        this.pokes = data.filter(p=>p.productType.id == 2);
+        this.tacos = data.filter(p=>p.productType.id == 3);
+        this.desserts = data.filter(p=>p.productType.id == 4);
+        console.log(this.drinks);
+        console.log(this.tacos);
+        console.log(this.desserts);
+        console.log(this.pokes);
+
+      },error:(error) => {
+        console.log(error);
+      }
+    })
+  }
+
+
+
+  /* getProducts() {
     this.ProdService.getAll("Product").subscribe({
       next: (data) => {
         data.forEach((prod) => {
@@ -71,5 +88,5 @@ export class ProductManagementComponent {
         console.log(error);
       }
     })
-  }
+  } */
 }
