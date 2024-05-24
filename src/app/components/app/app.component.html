@@ -2,4 +2,5 @@
 <app-login *ngIf="this.ps.isInLoginPage"></app-login>
 <app-register *ngIf="!this.ps.isInLoginPage && this.ps.isInRegisterPage && !this.as.isLogged"></app-register>
 <app-home *ngIf="!this.ps.isInLoginPage && !this.ps.isInRegisterPage && !this.as.isAdmin"></app-home>
+<app-home-admin *ngIf="!this.ps.isInLoginPage && !this.ps.isInRegisterPage && this.as.isAdmin"></app-home-admin>
 <app-footer></app-footer>

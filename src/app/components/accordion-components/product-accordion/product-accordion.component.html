@@ -1,0 +1,27 @@
+<div ngbAccordion [closeOthers]="true">
+    @for (item of products; track item) {
+    <div ngbAccordionItem>
+        <h2 ngbAccordionHeader>
+            <button (click)="getToEditProduct(item)" ngbAccordionButton>Id: {{item.productId}} {{ item.name }}</button>
+        </h2>
+        <div ngbAccordionCollapse>
+            <div ngbAccordionBody>
+                <ng-template>
+                    <label for="product-price"></label>
+                    <input name="product-price" type="text" [(ngModel)]="toEdit.price">
+                    <label for="product-description"></label>
+                    <input name="product-description" type="text" [(ngModel)]="toEdit.description">
+                    <div *ngFor="let ingredient of toEdit.productIngredients">
+                        <label for="product-ingredient"></label>
+                        <!--<input name="product-ingredient" type="text" [(ngModel)]="ingredient.">-->
+                        <p>{{ingredient.ingredientName}}</p>
+                    </div>
+                    <br><br>
+                    <button class="btn btn-primary">modifica</button>
+                    <app-modal-confirm></app-modal-confirm>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+    }
+</div>

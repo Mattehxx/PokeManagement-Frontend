@@ -34,7 +34,7 @@ app-root {
     padding: inherit;
 }
 
-app-home, app-login, app-register {
+app-home,app-home-admin app-login, app-register {
     display: block;
     min-height: calc(100% - 10rem);
     padding: 1rem 0 1rem 0;
@@ -72,3 +72,4 @@ app-product-card {
 
 /* Importing Bootstrap SCSS file. */
 @import 'bootstrap/scss/bootstrap';
+

@@ -10,13 +10,14 @@ import Swal from 'sweetalert2';
 import { AlertService } from '../../services/alert.service';
 import { RegisterComponent } from "../register/register.component";
 import { PageService } from '../../services/page.service';
+import { HomeAdminComponent } from '../home-admin/home-admin.component';
 
 @Component({
     selector: 'app-root',
     standalone: true,
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss',
-    imports: [CommonModule, RouterOutlet, HeaderComponent, FooterComponent, HomeComponent, LoginComponent, RegisterComponent]
+    imports: [CommonModule, RouterOutlet, HeaderComponent, FooterComponent, HomeComponent, LoginComponent, RegisterComponent,HomeAdminComponent]
 })
 export class AppComponent {
 	title: string = 'Fast & Foodious';
