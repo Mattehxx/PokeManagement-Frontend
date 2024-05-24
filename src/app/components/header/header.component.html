@@ -2,14 +2,14 @@
     <div class="container-fluid d-flex justify-content-between align-content-center px-4 h-100">
         <a class="navbar-brand d-flex align-items-center" href="#">
             <img src="/assets/img/poke-bowl.png" class="d-inline-block align-text-top header-img me-2">
-            <h1 class="m-0">{{title}}</h1>
+            <h1 class="m-0" style="font-size: 1.6rem;">{{title}}</h1>
         </a>
         <div class="d-flex justify-content-end align-items-center gap-3">
             <button class="btn btn-primary btn-lg" id="btn-cart" [disabled]="this.os.getCurrentElements() === 0" (click)="showCartPage()">
                 <fa-icon [icon]="faBasket"></fa-icon>
                 {{this.os.getCurrentElements()}}
             </button>
-            <button class="btn btn-primary btn-lg" (click)="showLoginPage()">
+            <button class="btn btn-primary btn-lg overflow-hidden" (click)="showLoginPage()" style="max-width: 20vw;">
                 <div *ngIf="!this.ps.isInLoginPage && !this.ps.isInRegisterPage" class="d-flex justify-content-center align-items-center gap-2">
                     <fa-icon [icon]="faUser"></fa-icon>
                     <p class="d-flex m-0">{{this.as.userLogged?.username ? this.as.userLogged?.username : 'Accedi'}}</p>
