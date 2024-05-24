@@ -5,11 +5,15 @@
 $primary: #588B8B;
 $secondary: #FFD5C2;
 $info: #fefafa;
+$danger: #dc3545;
+$warning: #ffc107;
 
 $theme-colors: (
     "primary": $primary,
     "secondary": $secondary,
-    "info": $info
+    "info": $info,
+    "danger": $danger,
+    "warning": $warning
 );
 
 html {

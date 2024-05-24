@@ -6,7 +6,7 @@
         </div>
         <p class="d-flex w-100 m-0">{{product.description}}</p>
 
-        <div class="h-line w-100 bg-primary"></div>
+        <div class="h-line w-100 bg-secondary"></div>
 
         <h2 class="d-flex w-100">Ingredienti inclusi</h2>
         <div class="d-flex justify-content-start gap-3 w-100" *ngFor="let ingredient of getIncludedIngredients(product)">
@@ -20,7 +20,7 @@
             </button>
         </div>
 
-        <div class="h-line w-100 bg-primary" *ngIf="getNotIncludedIngredients(product).length > 0"></div>
+        <div class="h-line w-100 bg-secondary" *ngIf="getNotIncludedIngredients(product).length > 0"></div>
 
         <h2 class="d-flex w-100" *ngIf="getNotIncludedIngredients(product).length > 0">Ingredienti non inclusi</h2>
         <div class="d-flex justify-content-start gap-3 w-100" *ngFor="let ingredient of getNotIncludedIngredients(product)">
@@ -33,6 +33,10 @@
                 <fa-icon [icon]="faPlus"></fa-icon>
             </button>
         </div>
+
+        <div class="h-line w-100 bg-secondary"></div>
+
+        <button class="btn btn-danger d-flex align-self-end">Rimuovi prodotto</button>
     </div>
 
     <button class="btn btn-primary btn-lg d-flex align-self-center justify-content-center align-items-center w-75">Conferma ordine</button>
