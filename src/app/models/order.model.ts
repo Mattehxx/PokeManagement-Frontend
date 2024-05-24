@@ -1,11 +1,14 @@
+import { orderDetail } from "./order-detail.model";
+
 export interface order {
     orderId: number;
-    reservationCode: string;
+    reservationCode: string | undefined;
     insertDate: string;
-    execDate: string;
+    execDate: string | undefined;
     isCompleted: boolean;
     isDeleted: boolean;
-    typeId: number;
+    orderTypeId: number;
     mandatorId: string | undefined;
-    operatorId: string;
+    operatorId: string | undefined;
+    details: Array<orderDetail>
 }

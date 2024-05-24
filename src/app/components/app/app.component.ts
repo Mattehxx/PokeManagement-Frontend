@@ -12,13 +12,14 @@ import { RegisterComponent } from "../register/register.component";
 import { PageService } from '../../services/page.service';
 import { HomeAdminComponent } from '../home-admin/home-admin.component';
 import { CartComponent } from "../cart/cart.component";
+import { OrderTypeComponent } from "../order-type/order-type.component";
 
 @Component({
     selector: 'app-root',
     standalone: true,
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss',
-    imports: [CommonModule, RouterOutlet, HeaderComponent, FooterComponent, HomeComponent, LoginComponent, RegisterComponent,HomeAdminComponent, CartComponent]
+    imports: [CommonModule, RouterOutlet, HeaderComponent, FooterComponent, HomeComponent, LoginComponent, RegisterComponent, HomeAdminComponent, CartComponent, OrderTypeComponent]
 })
 export class AppComponent {
 	title: string = 'Fast & Foodious';

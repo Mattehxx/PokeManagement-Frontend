@@ -8,19 +8,25 @@ import { AlertService } from "./alert.service";
 import { ProductService } from "./product.service";
 import { productIngredient } from "../models/product-ingredient.model";
 import { personalization } from "../models/personalization.model";
+import { orderDetail } from "../models/order-detail.model";
+import { order } from "../models/order.model";
+import { OrderTypeService } from "./order-type.service";
 
 @Injectable({
     providedIn: "any" //serve come per creare un singleton
 })
 
-export class OrderService extends GenericService<product> {
+export class OrderService extends GenericService<order> {
     cart: Array<productDetail>;
     personalizations: Array<personalization>;
+    orderDetails: Array<orderDetail>;
+    order: order | undefined;
 
-    constructor(http: HttpClient, as: AuthService, public alert: AlertService, public ps: ProductService) {
+    constructor(http: HttpClient, as: AuthService, public alert: AlertService, public ps: ProductService, public ot: OrderTypeService) {
         super(http, as);
         this.cart = [];
         this.personalizations = [];
+        this.orderDetails = [];
     }
 
     getCurrentPrice(): number {
@@ -37,9 +43,10 @@ export class OrderService extends GenericService<product> {
     addToCart(product: product) {
         this.ps.getProductDetail(`Product/Get/${product.productId}`).subscribe({
             next: (response) => {
+                console.log('RESPONSE', response);
                 this.cart?.push(response);
                 this.cart[this.cart.length - 1].productCartId = this.cart.length;
-                console.log(this.cart);
+                console.log('CART', this.cart);
             },
             error: (error) => {
                 this.alert.showError('Errore, riprovare più tardi!');
@@ -74,6 +81,54 @@ export class OrderService extends GenericService<product> {
         product.price = this.roundTo2Decimal(product.price + (ingredient.ingredientPrice * qty));
 
         console.log(this.personalizations);
+    }
+
+    private computeOrderDetails() {
+        this.orderDetails = [];
+        this.cart.forEach(p => {
+            this.orderDetails.push({
+                id: 0,
+                orderId: 0,
+                amount: 1,
+                productId: p.id,
+                price: p.price,
+                personalizations: this.personalizations.filter(pers => pers.productCartId === p.productCartId).map(pers => ({
+                    id: pers.id,
+                    amount: pers.amount,
+                    productIngredientId: pers.productIngredientId
+                }))
+            });
+        });
+
+        console.log(this.orderDetails);
+    }
+
+    computeOrder() {
+        this.computeOrderDetails();
+
+        this.order = {
+            orderId: 0,
+            reservationCode: undefined,
+            insertDate: new Date().toISOString(),
+            execDate: undefined,
+            isCompleted: false,
+            isDeleted: false,
+            orderTypeId: this.ot.orderTypes.find(ot => ot.isActive)!.id,
+            mandatorId: this.as.isLogged ? this.as.getUserId() : undefined,
+            operatorId: undefined,
+            details: this.orderDetails
+        };
+
+        this.post(`Order/Add`, this.order).subscribe({
+            next: (response) => {
+                this.alert.showSuccess('Ordine eseguito correttamente');
+                console.log(response);
+            },
+            error: (error) => {
+                this.alert.showError('Non è stato possibile esguire l\'ordine!');
+                console.error(error);
+            }
+        })
     }
 
     private roundTo2Decimal(num: number) {

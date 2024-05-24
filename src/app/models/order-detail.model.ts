@@ -1,4 +1,4 @@
-import { personalization } from "./personalization.model";
+import { newPersonalization, personalization } from "./personalization.model";
 
 export interface orderDetail {
     id: number;
@@ -6,5 +6,5 @@ export interface orderDetail {
     productId: number;
     amount: number;
     price: number;
-    personalizations: Array<personalization>
+    personalizations: Array<newPersonalization>
 }
