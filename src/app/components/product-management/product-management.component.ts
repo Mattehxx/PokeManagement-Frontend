@@ -50,7 +50,7 @@ export class ProductManagementComponent {
               isIncluded: pi.isIncluded,
               ingredientName: pi.ingredientName
             }
-            p.productIngredients.push()
+            p.productIngredients.push(toAdd)
           })
           switch (p.productType.id) {
             case 1:

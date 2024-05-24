@@ -1,7 +1,7 @@
 <ng-template #content let-modal>
 	<div class="modal-header">
-		<h4 class="modal-title" id="modal-basic-title">Profile update</h4>
-		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+		<h4 class="modal-title" id="modal-basic-title">Sicuro di voler modificare</h4>
+		<button type="button" class="btn-close shadow-none" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
 	</div>
 	<div class="modal-body">
 		<form>
@@ -14,8 +14,9 @@
 		</form>
 	</div>
 	<div class="modal-footer">
-		<button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+		<button type="button" class="btn btn-dark" (click)="modal.close('Save click')">Annulla</button>
+		<button type="button" class="btn btn-outline-danger" style="background-color: rgba(242, 10, 10, 0.738);" (click)="modal.close('Save click')">Salva</button>
 	</div>
     
 </ng-template>
-<button class="btn btn-lg btn-outline-primary" (click)="open(content)">Launch demo modal</button>
+<button class="btn btn-lg btn-outline-primary" (click)="open(content)">Modifica</button>
