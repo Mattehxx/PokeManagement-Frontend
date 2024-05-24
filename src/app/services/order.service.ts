@@ -37,6 +37,7 @@ export class OrderService extends GenericService<product> {
             next: (response) => {
                 this.cart?.push(response);
                 this.cart[this.cart.length - 1].productCartId = this.cart.length;
+                console.log(this.cart);
             },
             error: (error) => {
                 this.alert.showError('Errore, riprovare più tardi!');
