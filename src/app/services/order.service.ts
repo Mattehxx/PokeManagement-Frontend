@@ -6,7 +6,7 @@ import { AuthService } from "./auth.service";
 import { HttpClient } from "@angular/common/http";
 import { AlertService } from "./alert.service";
 import { ProductService } from "./product.service";
-import { productIngredient } from "../models/ingredient.model";
+import { productIngredient } from "../models/product-ingredient.model";
 
 @Injectable({
     providedIn: "any" //serve come per creare un singleton

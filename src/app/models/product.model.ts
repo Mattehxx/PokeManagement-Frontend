@@ -1,7 +1,5 @@
 import { element } from "./element.model";
-import { productIngredient } from "./product-ingredient";
-
-import { productIngredient } from "./ingredient.model";
+import { productIngredient, productIngredientBasic } from "./product-ingredient.model";
 
 export interface product {
     productId: number;
@@ -12,7 +10,7 @@ export interface product {
 }
 export interface productAdmin extends product{
     productType: element;
-    productIngredients: Array<productIngredient>;
+    productIngredients: Array<productIngredientBasic>;
 }
 
 export interface productDetail extends product {

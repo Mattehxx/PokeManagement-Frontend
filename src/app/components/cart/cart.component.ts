@@ -8,7 +8,7 @@ import { productDetail } from '../../models/product.model';
 import { AlertService } from '../../services/alert.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
-import { productIngredient } from '../../models/ingredient.model';
+import { productIngredient } from '../../models/product-ingredient.model';
 
 @Component({
 	selector: 'app-cart',

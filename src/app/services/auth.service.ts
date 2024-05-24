@@ -29,6 +29,8 @@ export class AuthService {
             this.isLogged = false;
             this.userLogged = undefined;
             
+            this.getUserRole();
+
             return true;
         } catch (error) {
             return false;
@@ -71,11 +73,17 @@ export class AuthService {
         let parsedJSON = this.parseLoginToObject();
         if(!parsedJSON) {
             this.isLogged = false;
+            this.isAdmin = false;
+            this.isOperator = false;
+            this.isCustomer = false;
             return false;
         }
 
         if (Date.parse(parsedJSON.expiration) <= Date.now()) {
             this.isLogged = false;
+            this.isAdmin = false;
+            this.isOperator = false;
+            this.isCustomer = false;
             return false;
         }
 
@@ -112,6 +120,9 @@ export class AuthService {
                 this.isCustomer = true;
                 break;
             default:
+                this.isAdmin = false;
+                this.isOperator = false;
+                this.isCustomer = false;
                 break;
         }
     }

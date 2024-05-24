@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { GenericService } from '../../services/generic.service';
 import { product, productAdmin } from '../../models/product.model';
-import { productIngredient } from '../../models/product-ingredient';
+import { productIngredient, productIngredientBasic } from '../../models/product-ingredient.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ProductAccordionComponent } from "../accordion-components/product-accordion/product-accordion.component";
@@ -43,7 +43,7 @@ export class ProductManagementComponent {
             productIngredients: []
           };
           prod.productIngredients.forEach((pi) => {
-            let toAdd: productIngredient = {
+            let toAdd: productIngredientBasic = {
               id: pi.id,
               amount: pi.amount,
               maxAllowed: pi.maxAllowed,

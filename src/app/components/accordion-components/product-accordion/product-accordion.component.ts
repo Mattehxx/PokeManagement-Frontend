@@ -4,7 +4,7 @@ import { productAdmin } from '../../../models/product.model';
 import { FormsModule } from '@angular/forms'
 import { CommonModule } from '@angular/common'
 import { element } from '../../../models/element.model';
-import { productIngredient } from '../../../models/product-ingredient';
+import { productIngredient } from '../../../models/product-ingredient.model';
 import { NgbdModalBasic } from "../../@modals-components/modal-confirm/modal-confirm.component";
 
 @Component({
