@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
 import { AlertService } from '../../services/alert.service';
 import { RegisterComponent } from "../register/register.component";
 import { PageService } from '../../services/page.service';
+import { HomeAdminComponent } from '../home-admin/home-admin.component';
 import { CartComponent } from "../cart/cart.component";
 
 @Component({
@@ -17,7 +18,7 @@ import { CartComponent } from "../cart/cart.component";
     standalone: true,
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss',
-    imports: [CommonModule, RouterOutlet, HeaderComponent, FooterComponent, HomeComponent, LoginComponent, RegisterComponent, CartComponent]
+    imports: [CommonModule, RouterOutlet, HeaderComponent, FooterComponent, HomeComponent, LoginComponent, RegisterComponent,HomeAdminComponent, CartComponent]
 })
 export class AppComponent {
 	title: string = 'Fast & Foodious';
