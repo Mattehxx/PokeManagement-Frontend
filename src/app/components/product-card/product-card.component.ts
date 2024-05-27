@@ -15,7 +15,8 @@ export class ProductCardComponent {
 		name: 'default',
 		description: 'default',
 		price: 0,
-		isDeleted: false
+		isDeleted: false,
+		productIngredients: []
 	};
 
 	constructor(public os: OrderService) {}

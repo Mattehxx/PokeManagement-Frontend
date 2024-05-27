@@ -4,9 +4,20 @@
 </div>
 
 <div class="mt-1 w-100" #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
-    <div class="d-flex flex-column justify-content-center align-items-start gap-3 w-100">
-        <h4 class="d-flex m-0">Dettagli</h4>
-        {{orderDetail?.mandatorId}}
+    <div class="d-flex flex-column justify-content-center align-items-start gap-2 w-100">
+        <h3 class="d-flex m-0" *ngIf="orderDetailed && orderDetailed.details.length > 0">Dettagli</h3>
+
+        <div class="d-flex flex-column justify-content-center align-items-start gap-1 w-100" 
+            *ngFor="let detail of orderDetailed?.details">
+            <div class="h-line bg-primary w-100"></div>
+            <h5 class="d-flex m-0 fw-bold">{{detail.product.name}}</h5>
+
+            <div class="d-flex flex-row justify-content-start align-items-center gap-1 w-100" 
+                *ngFor="let ingredient of getProductIngredients(detail)">
+                <p class="d-flex m-0">{{ingredient.ingredientName}}</p>
+                <p class="d-flex m-0">{{ingredient.amount}}</p>
+            </div>
+        </div>
     </div>
 </div>
 

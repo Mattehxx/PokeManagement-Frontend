@@ -7,6 +7,7 @@ export interface product {
     description: string;
     price: number;
     isDeleted: boolean;
+    productIngredients: Array<productIngredientBasic>;
 }
 export interface productAdmin extends product{
     productType: element;

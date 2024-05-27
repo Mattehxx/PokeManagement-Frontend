@@ -1,10 +1,13 @@
 import { Component, Input } from '@angular/core';
-import { order } from '../../models/order.model';
+import { order, orderForManagement } from '../../models/order.model';
 import { CommonModule } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { OrderService } from '../../services/order.service';
-import { orderDetail } from '../../models/order-detail.model';
 import { AlertService } from '../../services/alert.service';
+import { OrderForManagementService } from '../../services/orderForManagement.service';
+import { orderDetailForManagement } from '../../models/order-detail.model';
+import { IngredientAccordionComponent } from '../accordion-components/ingredient-accordion/ingredient-accordion.component';
+import { ingredient } from '../../models/ingredient.model';
+import { productIngredient, productIngredientBasic } from '../../models/product-ingredient.model';
 
 @Component({
 	selector: 'app-order-card',
@@ -16,10 +19,37 @@ import { AlertService } from '../../services/alert.service';
 export class OrderCardComponent {
 	@Input() order: order | undefined;
 
-	orderDetail: order | undefined;
+	orderDetailed: orderForManagement | undefined;
 	isCollapsed: boolean = true;
+	count: number = 1;
 
-	constructor(public os: OrderService, public alert: AlertService) {}
+	constructor(public os: OrderForManagementService, public alert: AlertService) {}
+
+	getProductIngredients(orderDetail: orderDetailForManagement) {
+		if(!orderDetail || !orderDetail.product.productIngredients)
+			return;
+
+		let fromProduct = orderDetail.product.productIngredients;
+
+		let fromPersonalization = orderDetail.personalizations?.map(pers => ({
+			id: pers.productIngredientId,
+			amount: pers.amount,
+			ingredientName: pers.productIngredient.ingredientName,
+			maxAllowed: pers.productIngredient.maxAllowed,
+			isIncluded: pers.productIngredient.isIncluded
+		}));
+		
+		let allIngredients: Array<productIngredientBasic> = [];
+
+		fromProduct.forEach(i => {
+			let ingredient = fromPersonalization.find(ifp => i.id === ifp.id);
+			if(!ingredient)
+				ingredient = i;
+			allIngredients.push(ingredient);
+		});
+		
+		return allIngredients;
+	}
 
 	convertDate(dateString: string | undefined) {
 		if(!dateString)
@@ -38,11 +68,10 @@ export class OrderCardComponent {
 
 	toggleCollapse() {
 		this.isCollapsed = !this.isCollapsed;
-		console.log('ORDER', this.order);
 		if (!this.isCollapsed) {
 			this.os.getSingle(`Order/Get/${this.order?.id}`).subscribe({
 				next: (response) => {
-					this.orderDetail = response;
+					this.orderDetailed = response;
 				},
 				error: (error) => {
 					this.alert.showError('Errore, non è stato possibile recuperare l\'ordine');
