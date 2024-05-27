@@ -1,0 +1,6 @@
+<div class="d-flex justify-content-between align-items-center w-100 gap-3">
+    <button class="btn-order-type btn d-flex justify-content-center align-items-center shadow" [ngClass]="orderType.isActive ? 'btn-primary' : 'btn-secondary'" 
+        *ngFor="let orderType of this.ot.orderTypes" (click)="activeButton(orderType)">
+        {{orderType.description}}
+    </button>
+</div>

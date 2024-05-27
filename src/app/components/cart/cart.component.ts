@@ -9,13 +9,14 @@ import { AlertService } from '../../services/alert.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import { productIngredient } from '../../models/product-ingredient.model';
+import { OrderTypeComponent } from "../order-type/order-type.component";
 
 @Component({
-	selector: 'app-cart',
-	standalone: true,
-	imports: [CommonModule, FormsModule, FontAwesomeModule],
-	templateUrl: './cart.component.html',
-	styleUrl: './cart.component.scss'
+    selector: 'app-cart',
+    standalone: true,
+    templateUrl: './cart.component.html',
+    styleUrl: './cart.component.scss',
+    imports: [CommonModule, FormsModule, FontAwesomeModule, OrderTypeComponent]
 })
 export class CartComponent {
 	faPlus = faPlus;
@@ -29,9 +30,5 @@ export class CartComponent {
 
 	getNotIncludedIngredients(product: productDetail): Array<productIngredient> {
 		return product.productIngredients.filter(i => !i.isIncluded);
-	}
-
-	addIngredient(product: productDetail , ingredient: productIngredient) {
-		this.os
 	}
 }

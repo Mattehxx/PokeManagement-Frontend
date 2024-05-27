@@ -1,7 +1,7 @@
 <app-header [title]="title"></app-header>
-<app-login *ngIf="this.ps.isInLoginPage"></app-login>
-<app-register *ngIf="!this.ps.isInLoginPage && this.ps.isInRegisterPage && !this.as.isLogged"></app-register>
-<app-home *ngIf="!this.ps.isInLoginPage && !this.ps.isInRegisterPage && !this.as.isAdmin && !this.ps.isInCartPage"></app-home>
-<app-home-admin *ngIf="!this.ps.isInLoginPage && !this.ps.isInRegisterPage && this.as.isAdmin"></app-home-admin>
-<app-cart *ngIf="!this.ps.isInLoginPage && !this.ps.isInRegisterPage && !this.as.isAdmin && this.ps.isInCartPage"></app-cart>
+<app-login *ngIf="this.ps.showLoginPage()"></app-login>
+<app-register *ngIf="this.ps.showRegisterPage()"></app-register>
+<app-home *ngIf="this.ps.showHomePage()"></app-home>
+<app-home-admin *ngIf="this.ps.showAdminHomePage()"></app-home-admin>
+<app-cart *ngIf="this.ps.showCartPage()"></app-cart>
 <app-footer></app-footer>

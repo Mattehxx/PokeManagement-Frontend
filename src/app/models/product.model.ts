@@ -13,7 +13,12 @@ export interface productAdmin extends product{
     productIngredients: Array<productIngredientBasic>;
 }
 
-export interface productDetail extends product {
+export interface productDetail {
+    id: number;
+    name: string;
+    description: string;
+    price: number;
+    isDeleted: boolean;
     productCartId: number;
     productIngredients: Array<productIngredient>
 }

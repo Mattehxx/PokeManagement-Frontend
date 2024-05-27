@@ -61,6 +61,10 @@ export class AuthService {
         return JSON.parse(json);
     }
 
+    getUserId() {
+        return this.parseLoginToObject()?.id;
+    }
+
     getAuthHeader(): string {
         let parsedJSON = this.parseLoginToObject();
         if(!parsedJSON)
