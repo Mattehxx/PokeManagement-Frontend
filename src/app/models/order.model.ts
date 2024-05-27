@@ -1,7 +1,7 @@
 import { orderDetail } from "./order-detail.model";
 
 export interface order {
-    orderId: number;
+    id: number;
     reservationCode: string | undefined;
     insertDate: string;
     execDate: string | undefined;
