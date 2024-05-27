@@ -16,7 +16,7 @@ export class PageService {
     showRegisterPage(): boolean { return !this.isInLoginPage && this.isInRegisterPage && !this.as.isLogged }
     showAdminHomePage(): boolean { return !this.isInLoginPage && !this.isInRegisterPage && !this.isInCartPage && this.as.isAdmin }
     showCartPage(): boolean { return !this.isInLoginPage && !this.isInRegisterPage && !this.as.isAdmin && this.isInCartPage }
-    showOrderManagementPage(): boolean { return this.isInOrderManagementPage && this.as.isOperator }
+    showOrderManagementPage(): boolean { return this.isInOrderManagementPage && !this.isInLoginPage && !this.isInRegisterPage && !this.isInCartPage && this.as.isOperator }
 
     returnToHomePage(): void {
         this.isInLoginPage = false;

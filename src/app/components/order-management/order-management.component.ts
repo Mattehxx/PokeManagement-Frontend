@@ -7,6 +7,7 @@ import { AlertService } from '../../services/alert.service';
 import { CommonModule } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { OrderCardComponent } from "../order-card/order-card.component";
+import { OrderForManagementService } from '../../services/orderForManagement.service';
 
 @Component({
     selector: 'app-order-management',
@@ -19,8 +20,8 @@ export class OrderManagementComponent {
 	orders: Array<order> | undefined;
 	
 
-	constructor(public as: AuthService, public ps: PageService, public os: OrderService, public alert: AlertService) {
-		this.os.getAll('Order').subscribe({
+	constructor(public as: AuthService, public ps: PageService, public os: OrderForManagementService, public alert: AlertService) {
+		this.os.getOrderToExec().subscribe({
 			next: (response) => {
 				response = response.filter(r => !r.isCompleted);
 				response = response.sort((prev, curr) => Date.parse(prev.insertDate) - Date.parse(curr.insertDate));

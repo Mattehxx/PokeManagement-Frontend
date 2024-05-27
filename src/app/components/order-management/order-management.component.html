@@ -3,5 +3,5 @@
         <h2 class="d-flex align-items-center m-0">Ordini da evadere: </h2>
         <h2 class="d-flex align-items-center m-0">{{orders?.length || 0}}</h2>
     </div>
-    <app-order-card class="order-container card d-flex flex-column justify-content-center align-content-center w-100 shadow" *ngFor="let order of orders" [order]="order"></app-order-card>
+    <app-order-card class="order-container card d-flex flex-column justify-content-center align-content-center gap-3 w-100 shadow" *ngFor="let order of orders" [order]="order"></app-order-card>
 </div>

@@ -5,9 +5,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AlertService } from '../../services/alert.service';
 import { OrderForManagementService } from '../../services/orderForManagement.service';
 import { orderDetailForManagement } from '../../models/order-detail.model';
-import { IngredientAccordionComponent } from '../accordion-components/ingredient-accordion/ingredient-accordion.component';
-import { ingredient } from '../../models/ingredient.model';
-import { productIngredient, productIngredientBasic } from '../../models/product-ingredient.model';
+import { productIngredientBasic } from '../../models/product-ingredient.model';
+import { OrderService } from '../../services/order.service';
 
 @Component({
 	selector: 'app-order-card',
@@ -23,7 +22,7 @@ export class OrderCardComponent {
 	isCollapsed: boolean = true;
 	count: number = 1;
 
-	constructor(public os: OrderForManagementService, public alert: AlertService) {}
+	constructor(public osm: OrderForManagementService, public os: OrderService, public alert: AlertService) {}
 
 	getProductIngredients(orderDetail: orderDetailForManagement) {
 		if(!orderDetail || !orderDetail.product.productIngredients)
@@ -51,7 +50,25 @@ export class OrderCardComponent {
 		return allIngredients;
 	}
 
-	convertDate(dateString: string | undefined) {
+	async execOrder(order: order | undefined) {
+		if(!order)
+			return;
+
+		if(!await this.alert.showModal('Sei sicuro di voler evadere questo ordine?'))
+			return;
+
+		this.os.put('Order/Edit', order).subscribe({
+			next: (response) => {
+				
+			},
+			error: (error) => {
+				this.alert.showError('Errore, non è stato possibile evadere l\'ordine!');
+				console.error(error);
+			},
+		})
+	}
+
+	convertDate(dateString: string | undefined): string {
 		if(!dateString)
 			return '';
 
@@ -69,7 +86,7 @@ export class OrderCardComponent {
 	toggleCollapse() {
 		this.isCollapsed = !this.isCollapsed;
 		if (!this.isCollapsed) {
-			this.os.getSingle(`Order/Get/${this.order?.id}`).subscribe({
+			this.osm.getSingle(`Order/Get/${this.order?.id}`).subscribe({
 				next: (response) => {
 					this.orderDetailed = response;
 				},

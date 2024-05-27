@@ -39,7 +39,7 @@ app-root {
     padding: inherit;
 }
 
-app-home, app-home-admin app-login, app-register, app-cart, app-order-management {
+app-home, app-home-admin, app-login, app-register, app-cart, app-order-management {
     display: block;
     min-height: calc(100% - 10rem);
     padding: 1rem 0 1rem 0;
@@ -75,7 +75,7 @@ app-order-type {
     background-color: rgba(64, 64, 64, 0.6);
 }
 
-.swal2-container {
+.swal2-container:has(.swal2-toast) {
     width: 18rem !important;
 }
 
