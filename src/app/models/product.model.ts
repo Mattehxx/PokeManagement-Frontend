@@ -2,7 +2,7 @@ import { element } from "./element.model";
 import { productIngredient, productIngredientBasic } from "./product-ingredient.model";
 
 export interface product {
-    productId: number;
+    id: number;
     name: string;
     description: string;
     price: number;

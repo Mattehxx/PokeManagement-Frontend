@@ -36,7 +36,6 @@ export class ProductManagementComponent {
         console.log(this.tacos);
         console.log(this.desserts);
         console.log(this.pokes);
-
       },error:(error) => {
         console.log(error);
       }

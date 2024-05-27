@@ -42,7 +42,7 @@ export class OrderService extends GenericService<order> {
     }
 
     addToCart(product: product) {
-        this.ps.getProductDetail(`Product/Get/${product.productId}`).subscribe({
+        this.ps.getProductDetail(`Product/Get/${product.id}`).subscribe({
             next: (response) => {
                 console.log('RESPONSE', response);
                 this.cart?.push(response);

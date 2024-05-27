@@ -1,9 +1,9 @@
 <div ngbAccordion [closeOthers]="true" *ngIf="products.length >= 1">
-    <h2>{{products[0].productType.description}}</h2>
+    <h2 class="product-type">{{products[0].productType.description}}</h2>
     @for (item of products; track item) {
-    <div ngbAccordionItem>
+    <div ngbAccordionItem [disabled]="item.isDeleted" [ngStyle]="{'opacity': item.isDeleted ? 0.5 : 1}">
         <h2 ngbAccordionHeader>
-            <button (click)="getToEditProduct(item)" ngbAccordionButton>Id: {{item.productId}} {{ item.name }}</button>
+            <button (click)="getToEditProduct(item)" ngbAccordionButton>Id: {{item.id}} {{ item.name }}</button>
         </h2>
         <div ngbAccordionCollapse>
             <div ngbAccordionBody>

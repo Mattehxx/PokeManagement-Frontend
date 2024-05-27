@@ -11,7 +11,7 @@ import { OrderService } from '../../services/order.service';
 })
 export class ProductCardComponent {
 	@Input() product: product = {
-		productId: 0,
+		id: 0,
 		name: 'default',
 		description: 'default',
 		price: 0,

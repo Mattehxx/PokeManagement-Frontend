@@ -33,7 +33,7 @@ export class ProductAccordionComponent {
       description:""
     }
     this.toEdit = {
-      productId : 0,
+      id : 0,
       name: "",
       price: 0,
       description: "",
