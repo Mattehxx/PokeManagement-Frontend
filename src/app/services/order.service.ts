@@ -108,7 +108,7 @@ export class OrderService extends GenericService<order> {
         this.computeOrderDetails();
 
         this.order = {
-            orderId: 0,
+            id: 0,
             reservationCode: undefined,
             insertDate: new Date().toISOString(),
             execDate: undefined,

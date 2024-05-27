@@ -1,0 +1,15 @@
+$primary: #588B8B;
+$secondary: #FFD5C2;
+$info: #fefafa;
+
+.order-header {
+    border: 0.2rem solid $secondary;
+    border-radius: 0.4rem;
+    padding: 1.2rem;
+}
+
+.order-container {
+    border: 0.2rem solid $primary;
+    border-radius: 0.4rem;
+    padding: 1.2rem;
+}

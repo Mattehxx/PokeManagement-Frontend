@@ -1,3 +1,4 @@
-<div class="d-flex flex-column gap-4 justify-content-center">
+<div class="d-flex flex-column gap-4 justify-content-center align-items-center">
+    <button class="btn btn-primary btn-lg w-75 shadow" *ngIf="this._as.isOperator" (click)="this.ps.isInOrderManagementPage = true;">Gestisci gli ordini</button>
     <app-category-card *ngFor="let type of productTypes" [productType]="type"></app-category-card>
 </div>

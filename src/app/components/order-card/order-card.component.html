@@ -1,0 +1,13 @@
+<div class="d-flex flex-column justify-content-center align-items-start" data-bs-toggle="collapse" (click)="toggleCollapse();">
+    <h3>Codice prenotazione: {{order?.reservationCode}}</h3>
+    <p class="text-muted">Effettuato il {{convertDate(order?.insertDate)}}</p>
+</div>
+
+<div class="mt-1 w-100" #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
+    <div class="d-flex flex-column justify-content-center align-items-start gap-3 w-100">
+        <h4 class="d-flex m-0">Dettagli</h4>
+        {{orderDetail?.mandatorId}}
+    </div>
+</div>
+
+<button class="btn btn-primary btn-lg d-flex align-self-end">Evadi</button>
