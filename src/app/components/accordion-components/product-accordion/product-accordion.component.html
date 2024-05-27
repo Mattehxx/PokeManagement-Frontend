@@ -1,5 +1,5 @@
 <div ngbAccordion [closeOthers]="true" *ngIf="products.length >= 1">
-    <h2>{{products[1].productType.description}}</h2>
+    <h2>{{products[0].productType.description}}</h2>
     @for (item of products; track item) {
     <div ngbAccordionItem>
         <h2 ngbAccordionHeader>
