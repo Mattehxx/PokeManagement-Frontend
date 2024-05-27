@@ -15,4 +15,10 @@ export class PageService {
     showRegisterPage(): boolean { return !this.isInLoginPage && this.isInRegisterPage && !this.as.isLogged }
     showAdminHomePage(): boolean { return !this.isInLoginPage && !this.isInRegisterPage && !this.isInCartPage && this.as.isAdmin }
     showCartPage(): boolean { return !this.isInLoginPage && !this.isInRegisterPage && !this.as.isAdmin && this.isInCartPage }
+
+    returnToHomePage(): void {
+        this.isInLoginPage = false;
+        this.isInRegisterPage = false;
+        this.isInCartPage = false;
+    }
 }
