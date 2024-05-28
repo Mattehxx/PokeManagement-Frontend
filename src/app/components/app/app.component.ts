@@ -23,7 +23,7 @@ import { OrderManagementComponent } from "../order-management/order-management.c
     imports: [CommonModule, RouterOutlet, HeaderComponent, FooterComponent, HomeComponent, LoginComponent, RegisterComponent, HomeAdminComponent, CartComponent, OrderTypeComponent, OrderManagementComponent]
 })
 export class AppComponent {
-	title: string = 'Fast & Foodious';
+	title: string = 'F&F';
 	isInLoginPage: boolean = false;
 	isInRegisterPage: boolean = false;
 

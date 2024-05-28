@@ -54,9 +54,10 @@ export class AlertService {
         })
     }
 
-    async showModal(message: string): Promise<boolean> {
+    async showModal(title: string, message: string = ''): Promise<boolean> {
         const response = await Swal.fire({
-            title: message,
+            title: title,
+            html: message,
             showCancelButton: true,
             confirmButtonText: "Conferma",
             cancelButtonText: "Annulla"

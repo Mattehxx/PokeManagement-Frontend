@@ -75,8 +75,23 @@ app-category-card, app-order-type {
     background-color: rgba(64, 64, 64, 0.6);
 }
 
+.product-ingredient-card {
+    border: 0.2rem solid $secondary;
+    border-radius: 0.4rem;
+    padding: 0.8rem;
+}
+
 .swal2-container:has(.swal2-toast) {
     width: 18rem !important;
+}
+
+.swal2-modal {
+    max-width: 85% !important;
+}
+
+.swal2-html-container {
+    margin: 0 !important;
+    padding: 1rem !important;
 }
 
 /* Importing Bootstrap SCSS file. */

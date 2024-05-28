@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { PageService } from '../../services/page.service';
 import { OrderService } from '../../services/order.service';
 import { ProductService } from '../../services/product.service';
-import { productDetail } from '../../models/product.model';
+import { product, productDetail } from '../../models/product.model';
 import { AlertService } from '../../services/alert.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
@@ -30,5 +30,20 @@ export class CartComponent {
 
 	getNotIncludedIngredients(product: productDetail): Array<productIngredient> {
 		return product.productIngredients.filter(i => !i.isIncluded);
+	}
+
+	async removeProductFromCart(product: productDetail) {
+		if(!await this.alert.showModal('Sei sicuro di voler rimouvere questo prodotto?'))
+			return;
+
+		this.os.removeFromCart(product);
+	}
+
+	async emptyCart() {
+		if(!await this.alert.showModal('Sei sicuro di voler svuotare il carrello?'))
+			return;
+
+		this.os.cart = [];
+		this.ps.returnToHomePage();
 	}
 }
