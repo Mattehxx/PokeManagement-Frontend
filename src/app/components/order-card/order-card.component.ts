@@ -7,6 +7,7 @@ import { OrderForManagementService } from '../../services/orderForManagement.ser
 import { orderDetailForManagement } from '../../models/order-detail.model';
 import { productIngredientBasic } from '../../models/product-ingredient.model';
 import { OrderService } from '../../services/order.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
 	selector: 'app-order-card',
@@ -22,7 +23,7 @@ export class OrderCardComponent {
 	isCollapsed: boolean = true;
 	count: number = 1;
 
-	constructor(public osm: OrderForManagementService, public os: OrderService, public alert: AlertService) {}
+	constructor(public osm: OrderForManagementService, public os: OrderService, public as: AuthService, public alert: AlertService) {}
 
 	getProductIngredients(orderDetail: orderDetailForManagement) {
 		if(!orderDetail || !orderDetail.product.productIngredients)
@@ -50,22 +51,47 @@ export class OrderCardComponent {
 		return allIngredients;
 	}
 
-	async execOrder(order: order | undefined) {
-		if(!order)
+	async execOrder() {
+		if(!this.orderDetailed)
 			return;
 
 		if(!await this.alert.showModal('Sei sicuro di voler evadere questo ordine?'))
 			return;
 
+		const order: order = {
+			id: this.orderDetailed.id,
+			reservationCode: this.orderDetailed.reservationCode,
+			insertDate: this.orderDetailed.insertDate,
+			execDate: new Date().toISOString(),
+			isCompleted: true,
+			isDeleted: this.orderDetailed.isDeleted,
+			orderTypeId: this.orderDetailed.orderTypeId,
+			mandatorId: this.orderDetailed.mandatorId,
+			operatorId: this.as.getUserId(),
+			details: this.orderDetailed.details
+		};
+
 		this.os.put('Order/Edit', order).subscribe({
-			next: (response) => {
-				
+			next: () => {
+				this.alert.showSuccess('Ordine evaso correttamente');
+				this.osm.orders;
+				this.osm.getOrderToExec().subscribe({
+					next: (response) => {
+						response = response.filter(r => !r.isCompleted);
+						response = response.sort((prev, curr) => Date.parse(prev.insertDate) - Date.parse(curr.insertDate));
+						this.osm.orders = response;
+					},
+					error: (error) => {
+						this.alert.showError('Errore, non è possibile recuperare gli ordini da evadere!');
+						console.error(error);
+					}
+				})
 			},
 			error: (error) => {
 				this.alert.showError('Errore, non è stato possibile evadere l\'ordine!');
 				console.error(error);
 			},
-		})
+		});
 	}
 
 	convertDate(dateString: string | undefined): string {

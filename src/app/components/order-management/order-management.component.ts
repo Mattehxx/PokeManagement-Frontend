@@ -17,18 +17,15 @@ import { OrderForManagementService } from '../../services/orderForManagement.ser
     imports: [CommonModule, NgbModule, OrderCardComponent]
 })
 export class OrderManagementComponent {
-	orders: Array<order> | undefined;
-	
-
 	constructor(public as: AuthService, public ps: PageService, public os: OrderForManagementService, public alert: AlertService) {
 		this.os.getOrderToExec().subscribe({
 			next: (response) => {
 				response = response.filter(r => !r.isCompleted);
 				response = response.sort((prev, curr) => Date.parse(prev.insertDate) - Date.parse(curr.insertDate));
-				this.orders = response;
+				this.os.orders = response;
 			},
 			error: (error) => {
-				this.alert.showError('Errore, non è possibile recuperare gli ordini!');
+				this.alert.showError('Errore, non è possibile recuperare gli ordini da evadere!');
 				console.error(error);
 			}
 		});

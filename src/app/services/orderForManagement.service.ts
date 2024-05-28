@@ -12,7 +12,7 @@ import { Observable } from "rxjs";
 })
 
 export class OrderForManagementService extends GenericService<orderForManagement> {
-    
+    orders: Array<order> | undefined;
 
     constructor(http: HttpClient, as: AuthService, public alert: AlertService, public pageServ: PageService) {
         super(http, as);
