@@ -9,7 +9,7 @@ import { environment } from "../../environments/environment";
 export class AuthService {
     //baseRoot: string = 'https://pw3-as-backend.azurewebsites.net/api/Authentication/';
     //baseRoot: string = 'http://localhost:5064/api/Authentication/';
-    baseRoot: string = `${environment.connectionString}/Authentication/`;
+    baseRoot: string = `${environment.connectionString}Authentication/`;
     isLogged: boolean = false;
     isAdmin: boolean = false;
     isOperator: boolean = false;
