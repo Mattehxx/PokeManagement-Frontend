@@ -2,13 +2,16 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { AuthService } from "./auth.service";
+import { environment } from "../../environments/environment";
 
 @Injectable({
     providedIn: "any" //serve come per creare un singleton
 })
 
 export class GenericService<T> {
-    baseRoot: string = 'http://localhost:5064/api/';
+    //baseRoot: string = 'https://pw3-as-backend.azurewebsites.net/api/';
+    //baseRoot: string = 'http://localhost:5064/api/';
+    baseRoot: string = environment.connectionString;
 
     constructor(protected http: HttpClient, protected as: AuthService) {
         
