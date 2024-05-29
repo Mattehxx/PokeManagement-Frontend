@@ -4,13 +4,14 @@ import { product } from '../../models/product.model';
 import { ProductManagementComponent } from "../product-management/product-management.component";
 import { FormsModule } from '@angular/forms'
 import { CommonModule } from '@angular/common';
+import { IngredientManagementComponent } from "../ingredient-management/ingredient-management.component";
 
 @Component({
-  selector: 'app-home-admin',
-  standalone: true,
-  templateUrl: './home-admin.component.html',
-  styleUrl: './home-admin.component.scss',
-  imports: [ProductManagementComponent, FormsModule, CommonModule]
+    selector: 'app-home-admin',
+    standalone: true,
+    templateUrl: './home-admin.component.html',
+    styleUrl: './home-admin.component.scss',
+    imports: [ProductManagementComponent, FormsModule, CommonModule, IngredientManagementComponent]
 })
 export class HomeAdminComponent {
   isProdViewMode: boolean = false;

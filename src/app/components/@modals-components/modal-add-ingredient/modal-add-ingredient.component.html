@@ -1,0 +1,46 @@
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Aggiunta ingrediente</h4>
+        <button type="button" class="btn-close shadow-none" aria-label="Close"
+            (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="mb-3">
+                <label for="name">Nome:</label>
+                <div class="input-group">
+                    <input type="text" name="name" class="form-control" [(ngModel)]="toAdd.name">
+                    <label for="description">Descrizione:</label>
+                    <br>
+                    <textarea name="description" class="form-control" aria-label="With textarea"
+                        [(ngModel)]="toAdd.description"></textarea>
+                    <label for="customRange3" class="form-label">Costo aggiuntivo</label>
+                    <input type="range" class="form-range w-50" min="0" max="1" step="0.5" id="customRange3"
+                        [(ngModel)]="toAdd.additionalCost" [ngModelOptions]="{standalone: true}">
+                    <label for="customRange3">{{toAdd.additionalCost}}</label>
+                    <br>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="invalidCheck" [(ngModel)]="toAdd.allergen"
+                            [ngModelOptions]="{standalone: true}" />
+                        <label class="form-check-label" for="invalidCheck">Allergene</label>
+                    </div>
+                    <label for="form-control">Calories</label>
+                    <div data-mdb-input-init class="form-outline" style="width: 22rem;">
+                        <input [(ngModel)]="toAdd.calories" type="number" id="typeNumber" class="form-control"
+                            [ngModelOptions]="{standalone: true}" />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-dark" (click)="modal.close('Save click')">Annulla</button>
+        <button type="button" class="btn btn-outline-danger"
+            style="background-color: rgba(242, 10, 10, 0.738);color: black;"
+            (click)="modal.close('Save click');emitIng()">Aggiungi</button>
+    </div>
+
+</ng-template>
+<button class="btn btn-lg btn-outline-primary" (click)="open(content)">
+    <i class="fa-solid fa-circle-plus fa-2xl" style="color: #03684a;"></i>
+</button>

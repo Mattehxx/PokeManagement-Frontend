@@ -22,3 +22,8 @@ export interface productDetail {
     productCartId: number;
     productIngredients: Array<productIngredient>
 }
+
+export interface toAddProduct extends product {
+    productTypeId: number;
+    productIngredients: Array<productIngredient>;
+}

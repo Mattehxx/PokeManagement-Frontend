@@ -1,0 +1,24 @@
+<div class="card pokes" > <!--*ngFor="let item of pokes"-->
+    <app-ingredient-accordion *ngIf="carboidrates.length >= 1" [ingredients]="carboidrates"></app-ingredient-accordion>
+</div>
+<div class="card pokes" >
+    <app-ingredient-accordion *ngIf="proteins.length >= 1" [ingredients]="proteins"></app-ingredient-accordion>
+</div>
+<div class="card vegetables" >
+    <app-ingredient-accordion *ngIf="vegetables.length >= 1" [ingredients]="vegetables"></app-ingredient-accordion>
+</div>
+<div class="card fruits" >
+    <app-ingredient-accordion *ngIf="fruits.length >= 1" [ingredients]="fruits"></app-ingredient-accordion>
+</div>
+<div class="card sauces">
+    <app-ingredient-accordion *ngIf="sauces.length >= 1" [ingredients]="sauces"></app-ingredient-accordion>
+</div>
+<div class="card seeds">
+    <app-ingredient-accordion *ngIf="seeds.length >= 1" [ingredients]="seeds"></app-ingredient-accordion>
+</div>
+<div class="card spices">
+    <app-ingredient-accordion *ngIf="spices.length >= 1" [ingredients]="spices"></app-ingredient-accordion>
+</div>
+<div class="card generic">
+    <app-ingredient-accordion *ngIf="generics.length >= 1" [ingredients]="generics"></app-ingredient-accordion>
+</div>

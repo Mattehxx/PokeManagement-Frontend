@@ -1,7 +1,18 @@
 <div ngbAccordion [closeOthers]="true" *ngIf="products.length >= 1">
-    <h2 class="product-type">{{products[0].productType.description}}</h2>
+    <div class="product-type d-flex justify-content-start align-items-center gap-3">
+        <h2 class="d-flex m-0">{{products[0].productType.description}}</h2>
+        <div class="form-check form-switch d-flex align-items-end gap-2 m-0">
+            <input class="form-check-input d-flex" type="checkbox"
+                id="flexSwitchCheckDefault {{products[0].productType.description}}" [(ngModel)]="isDeletedShown">
+            <label class="form-check-label d-flex" for="flexSwitchCheckDefault {{products[0].productType.description}}">
+                mostra prodotti eliminati
+            </label>
+        </div>
+        <app-modal-add-product (getToAddProd)="getToAdd($event)"></app-modal-add-product>
+    </div>
     @for (item of products; track item) {
-    <div ngbAccordionItem [disabled]="item.isDeleted" [ngStyle]="{'opacity': item.isDeleted ? 0.5 : 1}">
+    <div ngbAccordionItem [disabled]="item.isDeleted" *ngIf="!item.isDeleted || isDeletedShown"
+        [ngStyle]="{'opacity': item.isDeleted ? 0.5 : 1}">
         <h2 ngbAccordionHeader>
             <button (click)="getToEditProduct(item)" ngbAccordionButton>Id: {{item.id}} {{ item.name }}</button>
         </h2>
@@ -9,7 +20,9 @@
             <div ngbAccordionBody>
                 <ng-template>
                     <label for="product-price">Prezzo</label>
-                    <input name="product-price" type="number" [(ngModel)]="toEdit.price">
+                    <div data-mdb-input-init class="form-outline product-price" style="width: 22rem;">
+                        <input [(ngModel)]="toEdit.price" type="number" id="typeNumber" class="form-control" />
+                    </div>
                     <br>
                     <label for="product-description">Descrizione</label>
                     <textarea name="product-description" class="form-control" aria-label="With textarea"

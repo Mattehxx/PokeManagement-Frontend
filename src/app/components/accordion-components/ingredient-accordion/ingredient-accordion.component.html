@@ -1,1 +1,47 @@
-<p>ingredient-accordion works!</p>
+<div ngbAccordion [closeOthers]="true" *ngIf="ingredients.length >= 1">
+    <div class="product-type d-flex justify-content-start align-items-center gap-3">
+        <h2 class="d-flex m-0">{{ingredients[0].ingredientType.description}}</h2>
+        <div class="form-check form-switch d-flex align-items-end gap-2 m-0">
+            <input class="form-check-input d-flex" type="checkbox"
+                id="flexSwitchCheckDefault {{ingredients[0].ingredientType.description}}" [(ngModel)]="isDeletedShown">
+            <label class="form-check-label d-flex"
+                for="flexSwitchCheckDefault {{ingredients[0].ingredientType.description}}">
+                mostra prodotti eliminati
+            </label>
+        </div>
+        <app-modal-add-ingredient [ingredientType]="ingredients[0].ingredientType"  (getToAddProd)="getToAdd($event)"></app-modal-add-ingredient>
+
+    </div>
+    @for (item of ingredients; track item) {
+    <div ngbAccordionItem [disabled]="item.isDeleted" *ngIf="!item.isDeleted || isDeletedShown"
+        [ngStyle]="{'opacity': item.isDeleted ? 0.5 : 1}">
+        <h2 ngbAccordionHeader>
+            <button (click)="getToEditIngredient(item)" ngbAccordionButton>Id: {{item.id}} {{ item.name }}</button>
+        </h2>
+        <div ngbAccordionCollapse>
+            <div ngbAccordionBody>
+                <ng-template>
+                    <label for="customRange3" class="form-label">Costo aggiuntivo</label>
+                    <br>
+                    <input type="range" class="form-range w-25" min="0" max="1" step="0.5" id="customRange3"
+                        [(ngModel)]="toEdit.additionalCost"><label for="customRange3">{{toEdit.additionalCost}}</label>
+                    <br>
+                    <label for="form-control">Calories</label>
+                    <div data-mdb-input-init class="form-outline" style="width: 22rem;">
+                        <input [(ngModel)]="toEdit.calories" type="number" id="typeNumber" class="form-control" />
+                    </div>
+                    <label for="product-description">Descrizione</label>
+                    <textarea name="product-description" class="form-control" aria-label="With textarea"
+                        [(ngModel)]="toEdit.description"></textarea>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="invalidCheck" [(ngModel)]="toEdit.allergen"/>
+                        <label class="form-check-label" for="invalidCheck">Allergene</label>
+                    </div>
+                    <br><br>
+                    <app-modal-confirm (confirm)="editAction($event)" [changes]="toEditString()"></app-modal-confirm>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+    }
+</div>

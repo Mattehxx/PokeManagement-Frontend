@@ -1,0 +1,24 @@
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-top: 10px;
+}
+
+.product-ingredients-card span svg path {
+    position: absolute;
+    margin-right: 0px;
+    color: red;
+    z-index: 20;
+}
+[ngbAccordionButton]{
+    font-size: 50px;
+}
+
+/* [ngbAccordion]{
+    background-color: beige;
+} */
+div.product-type{
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-left: 8px;
+    background-color: beige;
+}
