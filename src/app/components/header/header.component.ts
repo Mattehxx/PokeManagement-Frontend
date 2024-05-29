@@ -2,6 +2,7 @@ import { Component, EventEmitter, Injectable, Input, Output, input } from '@angu
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { PageService } from '../../services/page.service';
+import { OrderService } from '../../services/order.service';
 
 @Component({
 	selector: 'app-header',
@@ -15,8 +16,8 @@ import { PageService } from '../../services/page.service';
 
 export class HeaderComponent {
 	@Input() title = '';
-
-	constructor(public as: AuthService, public ps: PageService) { }
+	
+	constructor(public as: AuthService, public ps: PageService, public os: OrderService) { }
 
 	showLoginPage() {
 		if(this.ps.isInLoginPage || this.ps.isInRegisterPage) {
@@ -27,5 +28,9 @@ export class HeaderComponent {
 			this.ps.isInLoginPage = true;
 			this.ps.isInRegisterPage = false;
 		}
+	}
+
+	showCartPage() {
+		this.ps.isInCartPage = !this.ps.isInCartPage;
 	}
 }

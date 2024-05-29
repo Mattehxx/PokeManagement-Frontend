@@ -1,0 +1,23 @@
+<ng-template #content let-modal>
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title">Sicuro di voler {{isDeletedMode ? "eliminare" : "modificare"}}</h4>
+		<button type="button" class="btn-close shadow-none" aria-label="Close" (click)="modal.dismiss('Cross click');removeDelMode()"></button>
+	</div>
+	<div class="modal-body" *ngIf="!isDeletedMode">
+		<form>
+			<div class="mb-3">
+				<label for="dateOfBirth">{{changes}}</label>
+				<div class="input-group">
+					ciao
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-dark" (click)="modal.close('Save click');removeDelMode();notSave()">Annulla</button>
+		<button type="button" class="btn btn-outline-danger" style="background-color: rgba(242, 10, 10, 0.738);color: black;" (click)="modal.close('Save click');removeDelMode();save()">{{isDeletedMode ? "Elimina" : "Salva"}}</button>
+	</div>
+    
+</ng-template> <!--aggiungere eventEmitter per eliminare o modificare-->
+<button class="btn btn-lg btn-outline-primary me-2" (click)="open(content);isDeletedMode=false">Modifica</button>
+<button class="btn btn-lg btn-outline-primary" (click)="open(content);isDeletedMode=true">Elimina</button>

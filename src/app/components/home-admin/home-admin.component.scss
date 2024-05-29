@@ -1,0 +1,25 @@
+div .card {
+    border-radius: 20px;
+    background-color: pink;
+    height: 300px;
+    width: 500px;
+    margin-left: 290px;
+    font-size: 40px;
+    align-items: center;
+}
+
+/* mat-card mat-card-content{
+    top: 50%;
+} */
+div {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.card {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    width: 250px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    text-align: center;
+}

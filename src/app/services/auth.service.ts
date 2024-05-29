@@ -2,11 +2,14 @@ import { Injectable } from "@angular/core";
 import { Observable, tap } from "rxjs";
 import { login, loginResult, register, registerResult, user } from "../models/auth.model";
 import { HttpClient } from "@angular/common/http";
+import { environment } from "../../environments/environment";
 
 @Injectable({providedIn: 'any'})
 
 export class AuthService {
-    baseRoot: string = 'http://localhost:5064/api/Authentication/';
+    //baseRoot: string = 'https://pw3-as-backend.azurewebsites.net/api/Authentication/';
+    //baseRoot: string = 'http://localhost:5064/api/Authentication/';
+    baseRoot: string = `${environment.connectionString}/Authentication/`;
     isLogged: boolean = false;
     isAdmin: boolean = false;
     isOperator: boolean = false;
@@ -29,6 +32,8 @@ export class AuthService {
             this.isLogged = false;
             this.userLogged = undefined;
             
+            this.getUserRole();
+
             return true;
         } catch (error) {
             return false;
@@ -59,6 +64,10 @@ export class AuthService {
         return JSON.parse(json);
     }
 
+    getUserId() {
+        return this.parseLoginToObject()?.id;
+    }
+
     getAuthHeader(): string {
         let parsedJSON = this.parseLoginToObject();
         if(!parsedJSON)
@@ -71,11 +80,17 @@ export class AuthService {
         let parsedJSON = this.parseLoginToObject();
         if(!parsedJSON) {
             this.isLogged = false;
+            this.isAdmin = false;
+            this.isOperator = false;
+            this.isCustomer = false;
             return false;
         }
 
         if (Date.parse(parsedJSON.expiration) <= Date.now()) {
             this.isLogged = false;
+            this.isAdmin = false;
+            this.isOperator = false;
+            this.isCustomer = false;
             return false;
         }
 
@@ -112,6 +127,9 @@ export class AuthService {
                 this.isCustomer = true;
                 break;
             default:
+                this.isAdmin = false;
+                this.isOperator = false;
+                this.isCustomer = false;
                 break;
         }
     }
