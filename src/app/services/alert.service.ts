@@ -53,4 +53,19 @@ export class AlertService {
             timer: 2000
         })
     }
+
+    async showModal(title: string, message: string = ''): Promise<boolean> {
+        const response = await Swal.fire({
+            title: title,
+            html: message,
+            showCancelButton: true,
+            confirmButtonText: "Conferma",
+            cancelButtonText: "Annulla"
+        });
+
+        if(!response.isConfirmed)
+            return false;
+
+        return true;
+    }
 }

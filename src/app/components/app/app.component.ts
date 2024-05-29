@@ -13,16 +13,17 @@ import { PageService } from '../../services/page.service';
 import { HomeAdminComponent } from '../home-admin/home-admin.component';
 import { CartComponent } from "../cart/cart.component";
 import { OrderTypeComponent } from "../order-type/order-type.component";
+import { OrderManagementComponent } from "../order-management/order-management.component";
 
 @Component({
     selector: 'app-root',
     standalone: true,
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss',
-    imports: [CommonModule, RouterOutlet, HeaderComponent, FooterComponent, HomeComponent, LoginComponent, RegisterComponent, HomeAdminComponent, CartComponent, OrderTypeComponent]
+    imports: [CommonModule, RouterOutlet, HeaderComponent, FooterComponent, HomeComponent, LoginComponent, RegisterComponent, HomeAdminComponent, CartComponent, OrderTypeComponent, OrderManagementComponent]
 })
 export class AppComponent {
-	title: string = 'Fast & Foodious';
+	title: string = 'F&F';
 	isInLoginPage: boolean = false;
 	isInRegisterPage: boolean = false;
 

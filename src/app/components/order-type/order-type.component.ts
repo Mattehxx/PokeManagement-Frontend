@@ -23,7 +23,6 @@ export class OrderTypeComponent {
 
 		this.ot.getAll(`OrderType`).subscribe({
 			next: (response) => {
-				console.log(this.as.isOperator);
 				response = this.as.isOperator ? 
 					response.filter(resp => resp.description.toLowerCase() === this.defaultType) : 
 					response.filter(resp => resp.description.toLowerCase() != this.defaultOperatorType);

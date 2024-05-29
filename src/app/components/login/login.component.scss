@@ -1,3 +1,7 @@
+$primary: #588B8B;
+$secondary: #FFD5C2;
+$info: #fefafa;
+
 .container-login {
     min-height: 100%;
     font-size: 2.5rem;
@@ -23,6 +27,7 @@
 .login-input {
     flex-grow: 1;
     font-size: inherit !important;
+    border: 0.2rem solid $primary;
 }
 
 .login-btn {

@@ -44,10 +44,8 @@ export class OrderService extends GenericService<order> {
     addToCart(product: product) {
         this.ps.getProductDetail(`Product/Get/${product.id}`).subscribe({
             next: (response) => {
-                console.log('RESPONSE', response);
                 this.cart?.push(response);
                 this.cart[this.cart.length - 1].productCartId = this.cart.length;
-                console.log('CART', this.cart);
             },
             error: (error) => {
                 this.alert.showError('Errore, riprovare più tardi!');
@@ -80,8 +78,6 @@ export class OrderService extends GenericService<order> {
 
         ingredient.amount += qty;
         product.price = this.roundTo2Decimal(product.price + (ingredient.ingredientPrice * qty));
-
-        console.log(this.personalizations);
     }
 
     private computeOrderDetails() {
@@ -100,15 +96,13 @@ export class OrderService extends GenericService<order> {
                 }))
             });
         });
-
-        console.log(this.orderDetails);
     }
 
     computeOrder() {
         this.computeOrderDetails();
 
         this.order = {
-            orderId: 0,
+            id: 0,
             reservationCode: undefined,
             insertDate: new Date().toISOString(),
             execDate: undefined,

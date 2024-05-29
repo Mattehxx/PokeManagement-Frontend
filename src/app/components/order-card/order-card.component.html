@@ -1,0 +1,29 @@
+<div class="d-flex flex-column justify-content-center align-items-start gap-2" data-bs-toggle="collapse" (click)="toggleCollapse();">
+    <h3 class="d-flex m-0">Codice prenotazione: {{order?.reservationCode}}</h3>
+    <h5 class="d-flex m-0">Effettuato il {{convertDate(order?.insertDate)}}</h5>
+    <div class="d-flex flex-row justify-content-center align-items-center gap-2 w-100">
+        <p class="d-flex m-0 text-muted">{{isCollapsed ? 'Premi per maggiori dettagli' : 'Premi per comprimere'}}</p>
+        <i class="d-flex" *ngIf="isCollapsed" class="fa-solid fa-arrow-down"></i>
+        <i class="d-flex" *ngIf="!isCollapsed" class="fa-solid fa-arrow-up"></i>
+    </div>
+</div>
+
+<div class="w-100" #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
+    <div class="d-flex flex-column justify-content-center align-items-start gap-2 w-100">
+        <h3 class="d-flex m-0" *ngIf="orderDetailed && orderDetailed.details.length > 0">Dettagli</h3>
+
+        <div class="card card-body product-container d-flex flex-column justify-content-center align-items-start gap-1 w-100 shadow" 
+            *ngFor="let detail of orderDetailed?.details">
+            <h5 class="d-flex m-0 fw-bold">{{detail.product.name}}</h5>
+            <div class="h-line bg-secondary w-40"></div>
+
+            <div class="d-flex flex-row justify-content-start align-items-center gap-1 w-100" 
+                *ngFor="let ingredient of getProductIngredients(detail)">
+                <p class="d-flex m-0 fw-semibold">{{ingredient.ingredientName}},</p>
+                <p class="d-flex m-0">{{ingredient.amount}}</p>
+            </div>
+        </div>
+
+        <button class="btn btn-primary btn-lg d-flex align-self-end" (click)="execOrder()">Evadi</button>
+    </div>
+</div>
