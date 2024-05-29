@@ -73,7 +73,6 @@ export class AuthService {
         let parsedJSON = this.parseLoginToObject();
         if(!parsedJSON)
             return '';
-        
         return `Bearer ${parsedJSON.token}`
     }
 

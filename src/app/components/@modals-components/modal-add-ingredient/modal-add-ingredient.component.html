@@ -6,26 +6,32 @@
     </div>
     <div class="modal-body">
         <form>
-            <div class="mb-3">
-                <label for="name">Nome:</label>
-                <div class="input-group">
+            <div class="d-flex flex-column justify-content-center align-items-start gap-3 mb-3">
+                <div class="d-flex flex-row justify-content-start align-items-center gap-2">
+                    <label for="name">Nome:</label>
                     <input type="text" name="name" class="form-control" [(ngModel)]="toAdd.name">
+                </div>
+                <div class="d-flex flex-row justify-content-start align-items-center gap-2">
                     <label for="description">Descrizione:</label>
-                    <br>
                     <textarea name="description" class="form-control" aria-label="With textarea"
                         [(ngModel)]="toAdd.description"></textarea>
+                </div>
+                <div class="d-flex flex-row justify-content-start align-items-center gap-2">
                     <label for="customRange3" class="form-label">Costo aggiuntivo</label>
                     <input type="range" class="form-range w-50" min="0" max="1" step="0.5" id="customRange3"
                         [(ngModel)]="toAdd.additionalCost" [ngModelOptions]="{standalone: true}">
                     <label for="customRange3">{{toAdd.additionalCost}}</label>
-                    <br>
+                </div>
+                <div class="d-flex flex-row justify-content-start align-items-center gap-2">
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" id="invalidCheck" [(ngModel)]="toAdd.allergen"
                             [ngModelOptions]="{standalone: true}" />
                         <label class="form-check-label" for="invalidCheck">Allergene</label>
                     </div>
+                </div>
+                <div class="d-flex flex-row justify-content-start align-items-center gap-2">
                     <label for="form-control">Calories</label>
-                    <div data-mdb-input-init class="form-outline" style="width: 22rem;">
+                    <div data-mdb-input-init class="form-outline">
                         <input [(ngModel)]="toAdd.calories" type="number" id="typeNumber" class="form-control"
                             [ngModelOptions]="{standalone: true}" />
                     </div>
@@ -41,6 +47,6 @@
     </div>
 
 </ng-template>
-<button class="btn btn-lg btn-outline-primary" (click)="open(content)">
+<button class="btn btn-lg" (click)="open(content)">
     <i class="fa-solid fa-circle-plus fa-2xl" style="color: #03684a;"></i>
 </button>

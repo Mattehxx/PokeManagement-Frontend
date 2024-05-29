@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { AuthService } from "./auth.service";
 
-@Injectable({providedIn: 'any'})
+@Injectable({ providedIn: 'any' })
 
 export class PageService {
     isInLoginPage: boolean = false;
@@ -11,7 +11,14 @@ export class PageService {
 
     isLoginFromCartPage: boolean = false;
 
-    constructor(public as: AuthService) {}
+    //#region HOME-ADMIN
+    isProdViewMode: boolean = false;
+    isIngredientViewMode: boolean = false;
+    isUserViewMode: boolean = false;
+    idOrdersHistoryViewMode: boolean = false;
+    //#endregion
+
+    constructor(public as: AuthService) { }
 
     showHomePage(): boolean { return !this.isInLoginPage && !this.isInRegisterPage && !this.isInCartPage && !this.as.isAdmin && !this.isInOrderManagementPage }
     showLoginPage(): boolean { return this.isInLoginPage }
@@ -26,6 +33,11 @@ export class PageService {
         this.isInCartPage = this.isLoginFromCartPage;
         this.isInOrderManagementPage = false;
         this.isLoginFromCartPage = false;
+
+        this.isProdViewMode = false;
+        this.isIngredientViewMode = false;
+        this.isUserViewMode = false;
+        this.idOrdersHistoryViewMode = false;
     }
 
     returnToLoginPage(): void {
