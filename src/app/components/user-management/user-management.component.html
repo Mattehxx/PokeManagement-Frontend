@@ -1,0 +1,11 @@
+<div class="container">
+    <div class="d-flex justify-content-start align-items-center gap-4 mb-3">
+        <h1 class="d-flex">Gestione utenti</h1>
+        <div class="form-check form-switch d-flex flex-row justify-content-center align-items-center gap-2">
+            <input class="form-check-input d-flex" type="checkbox" role="switch" [(ngModel)]="this.us.showDeleted">
+            <label class="form-check-label d-flex">Mostra utenti eliminati</label>
+        </div>
+    </div>
+    
+    <app-user-accordion></app-user-accordion>
+</div>

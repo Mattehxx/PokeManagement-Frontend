@@ -6,13 +6,14 @@ import { FormsModule } from '@angular/forms'
 import { CommonModule } from '@angular/common';
 import { IngredientManagementComponent } from "../ingredient-management/ingredient-management.component";
 import { PageService } from '../../services/page.service';
+import { UserManagementComponent } from "../user-management/user-management.component";
 
 @Component({
     selector: 'app-home-admin',
     standalone: true,
     templateUrl: './home-admin.component.html',
     styleUrl: './home-admin.component.scss',
-    imports: [ProductManagementComponent, FormsModule, CommonModule, IngredientManagementComponent]
+    imports: [ProductManagementComponent, FormsModule, CommonModule, IngredientManagementComponent, UserManagementComponent]
 })
 export class HomeAdminComponent {
   

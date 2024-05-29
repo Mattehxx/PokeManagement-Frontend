@@ -26,8 +26,10 @@ export interface registerResult {
 }
 
 export interface user {
+    id: string;
     name: string;
     surname: string;
     username: string;
     email: string;
+    role: string;
 }
