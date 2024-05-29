@@ -11,6 +11,7 @@ export class AuthService {
     //baseRoot: string = 'http://localhost:5064/api/Authentication/';
     baseRoot: string = `${environment.connectionString}Authentication/`;
     isLogged: boolean = false;
+    loginDenied: boolean = false;
     isAdmin: boolean = false;
     isOperator: boolean = false;
     isCustomer: boolean = false;
