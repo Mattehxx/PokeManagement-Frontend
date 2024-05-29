@@ -65,6 +65,14 @@
             <h1 class="d-flex m-0">Totale</h1>
             <h1 class="d-flex m-0">{{this.os.getCurrentPrice()}} €</h1>
         </div>
+        <div class="d-flex justify-content-between align-items-center w-100 gap-3" *ngIf="this.as.isLogged && !this.as.isOperator">
+            <p class="d-flex text-muted m-0">Sconto</p>
+            <p class="d-flex text-muted m-0">-{{this.os.discountValue * 100}} %</p>
+        </div>
+        <div class="d-flex justify-content-between align-items-center w-100 gap-3" *ngIf="this.as.isLogged && !this.as.isOperator">
+            <h1 class="d-flex m-0">Totale da pagare</h1>
+            <h1 class="d-flex m-0">{{this.os.getDiscountedPrice()}} €</h1>
+        </div>
 
         <app-order-type></app-order-type>
 

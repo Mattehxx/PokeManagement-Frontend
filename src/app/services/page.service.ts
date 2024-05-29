@@ -23,8 +23,9 @@ export class PageService {
     returnToHomePage(): void {
         this.isInLoginPage = false;
         this.isInRegisterPage = false;
-        this.isInCartPage = false;
+        this.isInCartPage = this.isLoginFromCartPage;
         this.isInOrderManagementPage = false;
+        this.isLoginFromCartPage = false;
     }
 
     returnToLoginPage(): void {
