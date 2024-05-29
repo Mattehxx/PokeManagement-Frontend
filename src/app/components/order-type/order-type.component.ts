@@ -26,8 +26,6 @@ export class OrderTypeComponent {
 				response = this.as.isOperator ? 
 					response.filter(resp => resp.description.toLowerCase() === this.defaultType) : 
 					response.filter(resp => resp.description.toLowerCase() != this.defaultOperatorType);
-				
-				console.log(response);
 
 				this.ot.orderTypes = response.map(resp => ({
 					id: resp.id,

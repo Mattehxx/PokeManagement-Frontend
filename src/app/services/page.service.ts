@@ -9,6 +9,8 @@ export class PageService {
     isInCartPage: boolean = false;
     isInOrderManagementPage: boolean = false;
 
+    isLoginFromCartPage: boolean = false;
+
     constructor(public as: AuthService) {}
 
     showHomePage(): boolean { return !this.isInLoginPage && !this.isInRegisterPage && !this.isInCartPage && !this.as.isAdmin && !this.isInOrderManagementPage }
@@ -23,5 +25,21 @@ export class PageService {
         this.isInRegisterPage = false;
         this.isInCartPage = false;
         this.isInOrderManagementPage = false;
+    }
+
+    returnToLoginPage(): void {
+        this.isInLoginPage = true;
+        this.isInRegisterPage = false;
+        this.isInCartPage = false;
+        this.isInOrderManagementPage = false;
+    }
+
+    returnToCartPage(): void {
+        this.isInLoginPage = false;
+        this.isInRegisterPage = false;
+        this.isInCartPage = true;
+        this.isInOrderManagementPage = false;
+        this.isLoginFromCartPage = false;
+        this.as.loginDenied = true;
     }
 }

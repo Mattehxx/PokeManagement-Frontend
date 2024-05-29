@@ -130,9 +130,8 @@ export class OrderService extends GenericService<order> {
         if(!this.as.isOperator)
             this.as.logout();
 
-        this.pageServ.isInCartPage = false;
-        this.pageServ.isInLoginPage = false;
-        this.pageServ.isInRegisterPage = false;
+        this.as.loginDenied = false;
+        this.pageServ.returnToHomePage();
 
         this.cart = [];
         this.personalizations = [];
