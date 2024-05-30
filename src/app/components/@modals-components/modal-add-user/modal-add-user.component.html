@@ -1,0 +1,53 @@
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Aggiunta utente</h4>
+        <button type="button" class="btn-close shadow-none" aria-label="Close"
+            (click)="modal.dismiss()"></button>
+    </div>
+    <div class="modal-body d-flex flex-column justify-content-center align-items-start gap-2">
+        <div class="d-flex flex-row justify-content-between align-items-center w-100">
+            <label class="d-flex">Username</label>
+            <input type="text" class="form-control d-flex w-75" [(ngModel)]="user.username">
+        </div>
+        <div class="d-flex flex-row justify-content-between align-items-center w-100">
+            <label class="d-flex">Email</label>
+            <input type="email" class="form-control d-flex w-75" [(ngModel)]="user.email">
+        </div>
+        <div class="d-flex flex-row justify-content-between align-items-center w-100">
+            <label class="d-flex">Nome</label>
+            <input type="text" class="form-control d-flex w-75" [(ngModel)]="user.name">
+        </div>
+        <div class="d-flex flex-row justify-content-between align-items-center w-100">
+            <label class="d-flex">Cognome</label>
+            <input type="text" class="form-control d-flex w-75" [(ngModel)]="user.surname">
+        </div>
+        <div class="d-flex flex-row justify-content-between align-items-center w-100">
+            <label class="d-flex">Password</label>
+            <input type="password" class="form-control d-flex w-75" [(ngModel)]="user.password">
+        </div>
+        <div class="d-flex flex-row justify-content-between align-items-center w-100">
+            <label class="d-flex">Conferma</label>
+            <input type="password" class="form-control d-flex w-75" [(ngModel)]="user.confirmPassword">
+        </div>
+        <div class="d-flex flex-row justify-content-between align-items-center w-100">
+            <label class="d-flex">Ruolo</label>
+            <select class="form-select d-flex w-75" [(ngModel)]="role">
+                <option value="Admin">Admin</option>
+                <option value="Operator">Operatore</option>
+            </select>
+        </div>
+        <div class="d-flex flex-row justify-content-end align-items-center gap-2 w-100">
+            <button class="btn btn-primary" (click)="addUser()">
+                <i class="fa-solid fa-user-plus"></i>
+            </button>
+        </div>
+    </div>
+    <div class="modal-footer">
+        
+    </div>
+
+</ng-template>
+
+<button class="btn btn-primary d-flex" (click)="open(content)">
+    <i class="fa-solid fa-user-plus"></i>
+</button>

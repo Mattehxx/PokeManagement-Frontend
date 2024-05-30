@@ -1,47 +1,48 @@
 <div ngbAccordion [closeOthers]="true">
-    <div ngbAccordionItem *ngFor="let user of this.us.allUsers">
+    <div ngbAccordionItem *ngFor="let user of this.us.filteredUsers">
         <h2 ngbAccordionHeader>
-            <button ngbAccordionButton (click)="computeRole(user)">{{user.username}}</button>
+            <button ngbAccordionButton (click)="computeRole(user)" [innerHTML]="computeUserName(user)"></button>
         </h2>
         <div ngbAccordionCollapse>
             <div ngbAccordionBody class="d-flex flex-column justify-content-center align-items-start gap-2">
                 <div class="d-flex flex-row justify-content-between align-items-center w-100">
                     <label class="d-flex">Username</label>
-                    <input type="text" class="form-control d-flex w-75" [(ngModel)]="user.username">
+                    <input type="text" class="form-control d-flex w-75" [(ngModel)]="user.username" 
+                        [disabled]="user.role === this.us.allRoles.Customer">
                 </div>
                 <div class="d-flex flex-row justify-content-between align-items-center w-100">
                     <label class="d-flex">Email</label>
-                    <input type="email" class="form-control d-flex w-75" [(ngModel)]="user.email">
+                    <input type="email" class="form-control d-flex w-75" [(ngModel)]="user.email" 
+                        [disabled]="user.role === this.us.allRoles.Customer">
                 </div>
                 <div class="d-flex flex-row justify-content-between align-items-center w-100">
                     <label class="d-flex">Nome</label>
-                    <input type="text" class="form-control d-flex w-75" [(ngModel)]="user.name">
+                    <input type="text" class="form-control d-flex w-75" [(ngModel)]="user.name" 
+                        [disabled]="user.role === this.us.allRoles.Customer">
                 </div>
                 <div class="d-flex flex-row justify-content-between align-items-center w-100">
                     <label class="d-flex">Cognome</label>
-                    <input type="text" class="form-control d-flex w-75" [(ngModel)]="user.surname">
+                    <input type="text" class="form-control d-flex w-75" [(ngModel)]="user.surname" 
+                        [disabled]="user.role === this.us.allRoles.Customer">
                 </div>
                 <div class="d-flex flex-row justify-content-between align-items-center w-100">
                     <label class="d-flex">Ruolo</label>
-                    <div class="form-check d-flex flex-column justify-content-center align-items-center gap-1">
-                        <input class="form-check-input d-flex m-0" type="radio" name="role-radio" [(ngModel)]="isAdmin">
-                        <label class="form-check-label d-flex">Admin</label>
-                    </div>
-                    <div class="form-check d-flex flex-column justify-content-center align-items-center gap-1">
-                        <input class="form-check-input d-flex m-0" type="radio" name="role-radio" [(ngModel)]="isOperator">
-                        <label class="form-check-label d-flex">Operator</label>
-                    </div>
-                    <div class="form-check d-flex flex-column justify-content-center align-items-center gap-1">
-                        <input class="form-check-input d-flex m-0" type="radio" name="role-radio" [(ngModel)]="isOperator">
-                        <label class="form-check-label d-flex">Customer</label>
-                    </div>
+                    <select class="form-select d-flex w-75" [(ngModel)]="selectedRole" 
+                        [disabled]="user.role === this.us.allRoles.Customer">
+                        <option value="Admin">Admin</option>
+                        <option value="Operator">Operatore</option>
+                        <option value="Customer" disabled>Cliente</option>
+                    </select>
                 </div>
                 <div class="d-flex flex-row justify-content-end align-items-center gap-2 w-100">
-                    <button class="btn btn-warning" (click)="doEdit(user)">
+                    <button class="btn btn-warning" (click)="doEdit(user)" [disabled]="user.role === this.us.allRoles.Customer">
                         <i class="fa-solid fa-pen-to-square"></i>
                     </button>
-                    <button class="btn btn-danger">
+                    <button class="btn btn-danger" [style.display]="user.isDeleted ? 'none' : 'block'" (click)="doLogicalDelete(user)">
                         <i class="fa-solid fa-trash"></i>
+                    </button>
+                    <button class="btn btn-primary" [style.display]="!user.isDeleted ? 'none' : 'block'" (click)="doLogicalRestore(user)">
+                        <i class="fa-solid fa-trash-arrow-up"></i>
                     </button>
                 </div>
             </div>

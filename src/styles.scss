@@ -94,6 +94,14 @@ app-category-card, app-order-type {
     padding: 1rem !important;
 }
 
+.form-control, .form-select {
+    border: 0.2rem $primary solid !important;
+}
+
+.form-check-input {
+    border: 0.1rem $primary solid !important;
+}
+
 /* Importing Bootstrap SCSS file. */
 @import 'bootstrap/scss/bootstrap';
 

@@ -19,10 +19,19 @@ export class UserService extends GenericService<user> {
 
     showDeleted: boolean = false;
     allUsers: Array<user>;
+    filteredUsers: Array<user>;
 
     constructor(http: HttpClient, as: AuthService, public alert: AlertService, public ps: PageService) {
         super(http, as);
         this.allUsers = [];
+        this.filteredUsers = [];
+    }
+
+    setFilteredList(): void {
+        if(!this.showDeleted)
+            this.filteredUsers = this.allUsers.filter(u => !u.isDeleted);
+        else 
+            this.filteredUsers = this.allUsers;
     }
 
     rolesToArray(): Array<string> {

@@ -15,13 +15,12 @@ import { user } from '../../../models/auth.model';
 	styleUrl: './user-accordion.component.scss'
 })
 export class UserAccordionComponent {
-	isAdmin = false;
-	isOperator = false;
-	isCustomer = false;
+	selectedRole = '';
 
 	constructor(public us: UserService, public alert: AlertService) {}
 
 	doEdit(user: user) {
+		user.role = this.selectedRole;
 		this.us.put('Authentication/Edit', user).subscribe({
 			next: () => {
 				this.alert.showSuccess('Account modificato con succeso');
@@ -33,23 +32,52 @@ export class UserAccordionComponent {
 		})
 	}
 
+	doLogicalDelete(user: user) {
+		this.us.delete(`Authentication/Delete/${user.id}`).subscribe({
+			next: () => {
+				user.isDeleted = true;
+				this.us.setFilteredList();
+				this.alert.showSuccess('Account eliminato con successo!');
+			},
+			error: (error) => {
+				this.alert.showError('Errore, non è stato possibile eliminare l\'account!');
+				console.error(error);
+			}
+		});
+	}
+
+	doLogicalRestore(user: user) {
+		this.us.delete(`Authentication/Restore/${user.id}`).subscribe({
+			next: () => {
+				user.isDeleted = false;
+				this.us.setFilteredList();
+				this.alert.showSuccess('Account riabilitato con successo!');
+			},
+			error: (error) => {
+				this.alert.showError('Errore, non è stato possibile recuperare l\'account!');
+				console.error(error);
+			}
+		});
+	}
+
 	computeRole(user: user) {
 		switch(user.role) {
 			case this.us.allRoles.Admin:
-				this.isAdmin = true;
-				this.isOperator = false;
-				this.isCustomer = false;
+				this.selectedRole = this.us.allRoles.Admin;
 				break;
 			case this.us.allRoles.Operator:
-				this.isOperator = true;
-				this.isAdmin = false;
-				this.isCustomer = false;
+				this.selectedRole = this.us.allRoles.Operator;
 				break;
 			case this.us.allRoles.Customer:
-				this.isCustomer = true;
-				this.isAdmin = false;
-				this.isOperator = false;
+				this.selectedRole = this.us.allRoles.Customer;
 				break;
 		}
+	}
+
+	computeUserName(user: user): string {
+		if(user.isDeleted)
+			return `<s class="text-muted">${user.username}</s>&nbsp&nbsp | &nbsp&nbsp${user.role}`;
+
+		return `${user.username}&nbsp&nbsp | &nbsp&nbsp${user.role}`;
 	}
 }
