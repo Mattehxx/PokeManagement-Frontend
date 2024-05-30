@@ -18,26 +18,14 @@
                 </div>
                 <!--product type aggiungere in automatico in base alla sezione @input??-->
                 <!--foreach ingredient ul list di bootstrap-->
-                <ul class="list-group list-group-light">
-                    <li class="list-group-item">
-                        <input class="form-check-input me-1" type="checkbox" value="" aria-label="..." />
-                        First checkbox
-                    </li>
-                    <li class="list-group-item">
-                        <input class="form-check-input me-1" type="checkbox" value="" aria-label="..." />
-                        Second checkbox
-                    </li>
-                    <li class="list-group-item">
-                        <input class="form-check-input me-1" type="checkbox" value="" aria-label="..." />
-                        Third checkbox
-                    </li>
-                    <li class="list-group-item">
-                        <input class="form-check-input me-1" type="checkbox" value="" aria-label="..." />
-                        Fourth checkbox
-                    </li>
-                    <li class="list-group-item">
-                        <input class="form-check-input me-1" type="checkbox" value="" aria-label="..." />
-                        Fifth checkbox
+                <h5>Ingredienti:{{loadIngs()}}</h5>
+                <ul class="list-group list-group-light" *ngFor="let ing of toAddIngredients">
+                    <li class="list-group-item" *ngIf="toAddIngredients.length == ingredients.length">
+                        <input style="border: solid;" class="form-check-input me-1" type="checkbox" value=""
+                            aria-label="..."
+                            [(ngModel)]="ing.confirm" />
+                        {{ing.name}}
+                        <!-- <input type="number" min="0" max="10"> -->
                     </li>
                 </ul>
 

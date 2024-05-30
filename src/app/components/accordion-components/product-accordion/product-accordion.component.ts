@@ -4,12 +4,14 @@ import { product, productAdmin, toAddProduct } from '../../../models/product.mod
 import { FormsModule } from '@angular/forms'
 import { CommonModule } from '@angular/common'
 import { element } from '../../../models/element.model';
-import { productIngredient } from '../../../models/product-ingredient.model';
+import { productIngredient, productIngredientBasic } from '../../../models/product-ingredient.model';
 import { NgbdModalBasic } from "../../@modals-components/modal-confirm/modal-confirm.component";
 import { ModalAddProductComponent } from "../../@modals-components/modal-add-product/modal-add-product.component";
 import { modalConfirmAction } from '../../../models/modal-confirm.model';
 import { GenericService } from '../../../services/generic.service';
 import { AlertService } from '../../../services/alert.service';
+import { ingredient } from '../../../models/ingredient.model';
+import { elementAt } from 'rxjs';
 
 @Component({
   selector: 'app-product-accordion',
@@ -24,11 +26,20 @@ export class ProductAccordionComponent {
 
   @Output()
   toEdit: productAdmin;
+  toAddIngredients: Array<productIngredient> = [];
+  allIngredients: Array<ingredient> = [];
   toEditString() {
     return `Nome:${this.toEdit.name}\n
     Descrizione:${this.toEdit.description}\n
     Prezzo:${this.toEdit.price}\n
     Ingredienti:${this.toEdit.productIngredients.map(x => x.ingredientName + "\n")}`
+  }
+  mapIngredients(){
+    return this.allIngredients.map(i=> ({
+      id:i.id,
+      name:i.name,
+      confirm:false
+    }));
   }
 
   isDeletedShown: boolean = false;
@@ -36,7 +47,7 @@ export class ProductAccordionComponent {
   //productIngredients: Array<productIngredient> = []
 
 
-  constructor(protected service: GenericService<productAdmin>, protected basicService: GenericService<toAddProduct>,protected alertService:AlertService) {
+  constructor(protected service: GenericService<productAdmin>, protected basicService: GenericService<toAddProduct>, protected alertService: AlertService, protected ingredientService: GenericService<ingredient>) {
     console.log(this.products);
     this.productType = {
       id: 0,
@@ -51,11 +62,21 @@ export class ProductAccordionComponent {
       productType: this.productType,
       productIngredients: []
     };  //prodotto da modificare
+    this.getAllIngredients();
   }
-
-
-
-
+  getAllIngredients(){
+    this.ingredientService.getAll("Ingredient").subscribe({
+      next:(response)=>{
+        this.allIngredients = response;
+      },error:(error)=>{
+        console.log(error);
+      }
+    });
+  }
+  
+  deleteIngredient(ing: productIngredientBasic) {
+    this.toEdit.productIngredients = this.toEdit.productIngredients.filter(pi => pi.id != ing.id);
+  }
   getToEditProduct(p: productAdmin) {  //prende in input il prodotto da modificare  
     this.toEdit = p;                   //e poi lo rimanda in output come toEdit a product-managemet-component
   }
