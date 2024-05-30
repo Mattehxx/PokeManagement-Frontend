@@ -27,10 +27,6 @@ export class IngredientManagementComponent {
   generics: Array<ingredient> = [];
 
 
-
-
-
-
   getProducts() {
     this.service.getAll("Ingredient").subscribe({
       next: (data) => {

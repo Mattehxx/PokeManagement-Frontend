@@ -36,7 +36,7 @@
                         <i class="fa-solid fa-trash fa-xl" style="color: #e01010;"></i>
                     </div>
                     <br><br>
-                    <app-modal-confirm></app-modal-confirm>
+                    <app-modal-confirm (confirm)="editAction($event)" [changes]="toEditString()"></app-modal-confirm>
                 </ng-template>
             </div>
         </div>

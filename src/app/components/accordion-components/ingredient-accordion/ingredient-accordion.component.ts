@@ -8,6 +8,7 @@ import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import { ModalAddIngredientComponent } from "../../@modals-components/modal-add-ingredient/modal-add-ingredient.component";
 import { GenericService } from '../../../services/generic.service';
 import { modalConfirmAction } from '../../../models/modal-confirm.model';
+import { AlertService } from '../../../services/alert.service';
 
 @Component({
   selector: 'app-ingredient-accordion',
@@ -31,7 +32,7 @@ export class IngredientAccordionComponent {
   }
   isDeletedShown: boolean = false;
 
-  constructor(protected service: GenericService<ingredient>, protected basicService: GenericService<toAddIngredient>) {
+  constructor(protected service: GenericService<ingredient>, protected basicService: GenericService<toAddIngredient>, protected alertService: AlertService) {
     this.ingredientType = {
       id: 0,
       description: ""
@@ -75,52 +76,71 @@ export class IngredientAccordionComponent {
     }
     this.ingredients.push(x);
   }
-  logicalDelete() {
+  logicalDelete(): boolean {
+    let res: boolean = false;
     let url = `Ingredient/LogicalDelete/${this.toEdit.id}`;
     this.service.delete(url).subscribe({
       next: (Response) => {
         console.log(Response);
         let i = this.ingredients.findIndex(ing => ing.id == this.toEdit.id);
         this.ingredients[i].isDeleted = true;
-        return true;
+        res = true;
       }, error: (error) => {
         console.log(error);
-        return false;
+        res = false;
       }
     });
+    return res;
   }
-  logicalRestore(item:ingredient) {
+  logicalRestore(item: ingredient): boolean {
+    let res: boolean = false;
     let url = `Ingredient/LogicalRestore/${item.id}`;
     this.service.delete(url).subscribe({
       next: (Response) => {
         console.log(Response);
         let i = this.ingredients.findIndex(ing => ing.id == item.id);
-        this.ingredients[i].isDeleted = false;
-        return true;
+        if (i > -1) {
+          this.ingredients[i].isDeleted = false;
+          res = true;
+          this.alertService.showSuccess("ingrediente ripristinato correttamente");
+        }
       }, error: (error) => {
         console.log(error);
-        return false;
+        res = false;
+        this.alertService.showError("ingrediente non ripristinato");
       }
     });
+    return res;
   }
   put(): boolean {
+    let res: boolean = false;
+    this.toEdit.id=0;
     this.service.put("Ingredient/Edit", this.toEdit).subscribe({
       next: (response) => {
         let i = this.ingredients.findIndex(ing => ing.id == response.id);
         this.ingredients[i] = response;
+        res = true;
       }, error: (error) => {
         console.log(error);
-        return false;
+        res = false;
       }
     });
-    return true;
+    return res;
   }
   editAction(confirm: modalConfirmAction) {
     if (confirm.confirm) {
       if (confirm.action == "delete") {
-        this.logicalDelete();
+        if (!this.logicalDelete()) {
+          this.alertService.showSuccess("ingrediente eliminato correttamente");
+        } else {
+          this.alertService.showError("l'ingrediente non è stato eliminato");
+        }
       } else if (confirm.action == "edit") {
-        this.put();
+        if (!this.put()) {
+          this.alertService.showSuccess("ingrediente modificato correttamente");
+        } else {
+          this.alertService.showError("l'ingrediente non è stato modificato");
+        }
       }
     }
   }
