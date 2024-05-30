@@ -8,6 +8,7 @@
             </div>
             <app-modal-add-user></app-modal-add-user>
         </div>
+        <input type="text" class="form-control" [(ngModel)]="this.us.textInp" placeholder="Cerca un utente" (input)="this.us.setFilteredList()">
     </div>
     
     <app-user-accordion></app-user-accordion>
