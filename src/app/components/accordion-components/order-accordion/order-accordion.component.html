@@ -3,9 +3,9 @@
     <div ngbAccordionItem *ngFor="let order of this.os.filteredOrders">
         <h2 ngbAccordionHeader>
             <button ngbAccordionButton>
-                {{order.reservationCode}} | {{convertDate(order.insertDate, false)}} | 
+                <strong>{{order.reservationCode}}</strong>&nbsp; |&nbsp; {{convertDate(order.insertDate, false)}}&nbsp; |&nbsp; 
                 {{order.execDate != '' ? convertDate(order.execDate, false) : 'Da evadere'}}
-                {{order.isCompleted ? '' : ' | Non ancora evaso'}}
+                {{order.isCompleted ? '' : 'Non ancora evaso'}}
             </button>
         </h2>
         <div ngbAccordionCollapse>
