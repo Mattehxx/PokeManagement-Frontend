@@ -49,10 +49,9 @@ export class IngredientAccordionComponent {
       ingredientType: this.ingredientType
     };
   }
-
-
   getToEditIngredient(ing: ingredient) {  //prende in input ingrediente da modificare  
-    this.toEdit = ing;                   //e poi lo rimanda in output come toEdit a ingredient-managemet-component
+    this.toEdit = ing;
+    //console.log("to edit ingredient-->"+this.toEdit.id);                   //e poi lo rimanda in output come toEdit a ingredient-managemet-component
   }
   getToAdd(ing: toAddIngredient) {
     this.basicService.post("Ingredient/Add", ing).subscribe({
@@ -76,24 +75,21 @@ export class IngredientAccordionComponent {
     }
     this.ingredients.push(x);
   }
-  logicalDelete(): boolean {
-    let res: boolean = false;
+  logicalDelete() {
     let url = `Ingredient/LogicalDelete/${this.toEdit.id}`;
     this.service.delete(url).subscribe({
-      next: (Response) => {
-        console.log(Response);
+      next: (response) => {
+        console.log(response);
         let i = this.ingredients.findIndex(ing => ing.id == this.toEdit.id);
         this.ingredients[i].isDeleted = true;
-        res = true;
+        this.alertService.showSuccess("ingrediente eliminato correttamente");
       }, error: (error) => {
         console.log(error);
-        res = false;
+        this.alertService.showError("l'ingrediente non è stato eliminato");
       }
     });
-    return res;
   }
-  logicalRestore(item: ingredient): boolean {
-    let res: boolean = false;
+  logicalRestore(item: ingredient) {
     let url = `Ingredient/LogicalRestore/${item.id}`;
     this.service.delete(url).subscribe({
       next: (Response) => {
@@ -101,46 +97,32 @@ export class IngredientAccordionComponent {
         let i = this.ingredients.findIndex(ing => ing.id == item.id);
         if (i > -1) {
           this.ingredients[i].isDeleted = false;
-          res = true;
           this.alertService.showSuccess("ingrediente ripristinato correttamente");
         }
       }, error: (error) => {
         console.log(error);
-        res = false;
         this.alertService.showError("ingrediente non ripristinato");
       }
     });
-    return res;
   }
-  put(): boolean {
-    let res: boolean = false;
-    this.toEdit.id=0;
+  put() {
     this.service.put("Ingredient/Edit", this.toEdit).subscribe({
       next: (response) => {
-        let i = this.ingredients.findIndex(ing => ing.id == response.id);
-        this.ingredients[i] = response;
-        res = true;
+        let i = this.ingredients.findIndex(ing => ing.id == this.toEdit.id);
+        this.ingredients[i] = this.toEdit;
+        this.alertService.showSuccess("ingrediente modificato correttamente");
       }, error: (error) => {
         console.log(error);
-        res = false;
+        this.alertService.showError("l'ingrediente non è stato modificato");
       }
     });
-    return res;
   }
   editAction(confirm: modalConfirmAction) {
     if (confirm.confirm) {
       if (confirm.action == "delete") {
-        if (!this.logicalDelete()) {
-          this.alertService.showSuccess("ingrediente eliminato correttamente");
-        } else {
-          this.alertService.showError("l'ingrediente non è stato eliminato");
-        }
+        this.logicalDelete();
       } else if (confirm.action == "edit") {
-        if (!this.put()) {
-          this.alertService.showSuccess("ingrediente modificato correttamente");
-        } else {
-          this.alertService.showError("l'ingrediente non è stato modificato");
-        }
+        this.put();
       }
     }
   }

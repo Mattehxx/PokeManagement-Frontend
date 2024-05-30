@@ -9,6 +9,7 @@ import { NgbdModalBasic } from "../../@modals-components/modal-confirm/modal-con
 import { ModalAddProductComponent } from "../../@modals-components/modal-add-product/modal-add-product.component";
 import { modalConfirmAction } from '../../../models/modal-confirm.model';
 import { GenericService } from '../../../services/generic.service';
+import { AlertService } from '../../../services/alert.service';
 
 @Component({
   selector: 'app-product-accordion',
@@ -35,7 +36,7 @@ export class ProductAccordionComponent {
   //productIngredients: Array<productIngredient> = []
 
 
-  constructor(protected service: GenericService<productAdmin>, protected basicService: GenericService<toAddProduct>) {
+  constructor(protected service: GenericService<productAdmin>, protected basicService: GenericService<toAddProduct>,protected alertService:AlertService) {
     console.log(this.products);
     this.productType = {
       id: 0,
@@ -63,7 +64,6 @@ export class ProductAccordionComponent {
     //aggiungere a products
   }
   logicalDelete() {
-    let res: boolean = false;
     let url = `Product/LogicalDelete/${this.toEdit.id}`;
     this.service.delete(url).subscribe({
       next: (Response) => {
@@ -71,18 +71,15 @@ export class ProductAccordionComponent {
         let i = this.products.findIndex(prod => prod.id == this.toEdit.id);
         if (i > -1) {
           this.products[i].isDeleted = true;
-          res = true;
+          this.alertService.showSuccess("prodotto eliminato correttamente");
         }
-        res = false;
       }, error: (error) => {
         console.log(error);
-        res = false;
+        this.alertService.showError("il prodotto non è stato eliminato");
       }
     });
-    return res;
   }
   logicalRestore(item: product) {
-    let res: boolean = false;
     let url = `Product/LogicalRestore/${item.id}`;
     this.service.delete(url).subscribe({
       next: (Response) => {
@@ -90,29 +87,27 @@ export class ProductAccordionComponent {
         let i = this.products.findIndex(prod => prod.id == item.id);
         if (i > -1) {
           this.products[i].isDeleted = false;
-          res = true;
         }
+        this.alertService.showSuccess("prodotto ripristinato correttamente");
       }, error: (error) => {
         console.log(error);
-        res = false;
+        this.alertService.showError("il prodotto non è stato ripristinato");
       }
     });
-    return res;
   }
-  put(): boolean {
-    let res: boolean = false;
+  put() {
     this.service.put("Product/Edit", this.toEdit).subscribe({
       next: (Response) => {
         let i = this.products.findIndex(ing => ing.id == Response.id);
         if (i > -1) {
           this.products[i] = Response;
-          res = true;
         }
+        this.alertService.showSuccess("prodotto modificato correttamente");
       }, error: (error) => {
         console.log(error);
+        this.alertService.showError("il prodotto non è stato modificato");
       }
     });
-    return res;
   }
   editAction(confirm: modalConfirmAction) {
     if (confirm.confirm) {

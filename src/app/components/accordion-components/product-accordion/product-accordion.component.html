@@ -29,11 +29,11 @@
                         [(ngModel)]="toEdit.description"></textarea>
                     <h3>ingredienti:</h3>
                     <div class="card product-ingredients-card d-flex flex-row justify-content-between align-items-center p-3"
-                        *ngFor="let ingredient of toEdit.productIngredients">
+                        *ngFor="let ingredient of toEdit.productIngredients" [ngStyle]="{'opacity':ingredient.isDeleted ? 0.5 : 1}">
                         <span>
                             {{ingredient.ingredientName}}
                         </span>
-                        <i class="fa-solid fa-trash fa-xl" style="color: #e01010;"></i>
+                        <i *ngIf="!ingredient.isDeleted" class="fa-solid fa-trash fa-xl" style="color: #e01010;"></i>
                     </div>
                     <br><br>
                     <app-modal-confirm (confirm)="editAction($event)" [changes]="toEditString()"></app-modal-confirm>
