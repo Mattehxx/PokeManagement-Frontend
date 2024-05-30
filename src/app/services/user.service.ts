@@ -18,6 +18,7 @@ export class UserService extends GenericService<user> {
     };
 
     showDeleted: boolean = false;
+    textInp: string = '';
     allUsers: Array<user>;
     filteredUsers: Array<user>;
 
@@ -32,6 +33,8 @@ export class UserService extends GenericService<user> {
             this.filteredUsers = this.allUsers.filter(u => !u.isDeleted);
         else 
             this.filteredUsers = this.allUsers;
+
+        this.filteredUsers = this.filteredUsers.filter(u => u.username.includes(this.textInp));
     }
 
     rolesToArray(): Array<string> {

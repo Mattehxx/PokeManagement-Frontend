@@ -76,8 +76,8 @@ export class UserAccordionComponent {
 
 	computeUserName(user: user): string {
 		if(user.isDeleted)
-			return `<s class="text-muted">${user.username}</s>&nbsp&nbsp | &nbsp&nbsp${user.role}`;
+			return `<strong><s class="text-muted">${user.username}</s></strong>&nbsp&nbsp | &nbsp&nbsp${user.role}`;
 
-		return `${user.username}&nbsp&nbsp | &nbsp&nbsp${user.role}`;
+		return `<strong>${user.username}</strong>&nbsp&nbsp | &nbsp&nbsp${user.role}`;
 	}
 }
