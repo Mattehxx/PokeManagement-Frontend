@@ -1,9 +1,10 @@
-import { Component, EventEmitter, inject, input, Output, TemplateRef } from '@angular/core';
+import { Component, EventEmitter, inject, Input, input, Output, TemplateRef } from '@angular/core';
 import { ModalDismissReasons, NgbDatepickerModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { productAdmin, toAddProduct } from '../../../models/product.model';
 import { GenericService } from '../../../services/generic.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ingredient } from '../../../models/ingredient.model';
 @Component({
   selector: 'app-modal-add-product',
   standalone: true,
@@ -15,8 +16,22 @@ export class ModalAddProductComponent {
   private modalService = inject(NgbModal);
 	closeResult = '';
   toAdd : toAddProduct ;
+  @Input()
+  ingredients:Array<ingredient> = [];
+  @Input()
+  toAddIngredients : Array<{id:number,name:string,confirm:boolean}> = [];
   @Output()
   getToAddProd = new EventEmitter<toAddProduct>()
+
+  
+  loadIngs(){
+    this.toAddIngredients = this.ingredients.map(i=> ({
+      id:i.id,
+      name:i.name,
+      confirm:false
+    }));
+    return this.toAddIngredients;
+  }
   constructor(protected service:GenericService<toAddProduct>){
     this.toAdd = {
       id : 0,
@@ -27,6 +42,7 @@ export class ModalAddProductComponent {
       productTypeId: 0,
       productIngredients: []
     }
+    
   }
   emitProd(){
     this.getToAddProd.emit(this.toAdd);

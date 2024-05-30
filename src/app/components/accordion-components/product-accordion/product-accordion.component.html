@@ -8,7 +8,7 @@
                 mostra prodotti eliminati
             </label>
         </div>
-        <app-modal-add-product (getToAddProd)="getToAdd($event)"></app-modal-add-product>
+        <app-modal-add-product [ingredients]="allIngredients" [toAddIngredients]="mapIngredients()" (getToAddProd)="getToAdd($event)"></app-modal-add-product>
     </div>
     @for (item of products; track item) {
     <div ngbAccordionItem [disabled]="item.isDeleted" *ngIf="!item.isDeleted || isDeletedShown"
@@ -27,16 +27,28 @@
                     <label for="product-description">Descrizione</label>
                     <textarea name="product-description" class="form-control" aria-label="With textarea"
                         [(ngModel)]="toEdit.description"></textarea>
-                    <h3>ingredienti:</h3>
+                    <h3 *ngIf="toEdit.productIngredients.length > 0">ingredienti:</h3>
                     <div class="card product-ingredients-card d-flex flex-row justify-content-between align-items-center p-3"
-                        *ngFor="let ingredient of toEdit.productIngredients">
+                        *ngFor="let ingredient of toEdit.productIngredients"
+                        [ngStyle]="{'opacity':ingredient.isDeleted ? 0.5 : 1}">
                         <span>
                             {{ingredient.ingredientName}}
                         </span>
-                        <i class="fa-solid fa-trash fa-xl" style="color: #e01010;"></i>
+                        <button (click)="deleteIngredient(ingredient)"
+                            style="border: 0px;background-color: transparent;">
+                            <i *ngIf="!ingredient.isDeleted" class="fa-solid fa-trash fa-xl"
+                                style="color: #e01010;"></i>
+                        </button>
                     </div>
+                    <br>
+                    <!-- <div class="d-inline-flex">
+                        <select class="form-select w-25" id="sel1" name="sellist1" *ngFor="let ing of getIngredientsAdd()" [(ngModel)]="toAddIngredient">
+                            <option style="font-size: 10px;width: auto;">{{ing.name}}</option>
+                        </select>
+                        <button class="btn btn-primary " (click)="addToEditIng()">Aggiungi</button>
+                    </div> -->
                     <br><br>
-                    <app-modal-confirm></app-modal-confirm>
+                    <app-modal-confirm (confirm)="editAction($event)" [changes]="toEditString()"></app-modal-confirm>
                 </ng-template>
             </div>
         </div>

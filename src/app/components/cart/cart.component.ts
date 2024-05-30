@@ -27,7 +27,7 @@ export class CartComponent {
 	}
 
 	getNotIncludedIngredients(product: productDetail): Array<productIngredient> {
-		return product.productIngredients.filter(i => !i.isIncluded);
+		return product.productIngredients.filter(i => !i.isIncluded && !i.isDeleted);
 	}
 
 	doComputeCart() {

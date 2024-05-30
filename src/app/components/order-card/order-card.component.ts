@@ -36,7 +36,8 @@ export class OrderCardComponent {
 			amount: pers.amount,
 			ingredientName: pers.productIngredient.ingredientName,
 			maxAllowed: pers.productIngredient.maxAllowed,
-			isIncluded: pers.productIngredient.isIncluded
+			isIncluded: pers.productIngredient.isIncluded,
+			isDeleted: pers.productIngredient.isDeleted
 		}));
 		
 		let allIngredients: Array<productIngredientBasic> = [];

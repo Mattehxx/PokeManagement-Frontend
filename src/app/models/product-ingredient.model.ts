@@ -4,6 +4,7 @@ export interface productIngredientBasic{
     amount: number;
     maxAllowed: number;
     isIncluded: boolean;
+    isDeleted:boolean | undefined;
 }
 
 export interface productIngredient {
@@ -15,4 +16,5 @@ export interface productIngredient {
     amount: number;
     maxAllowed: number;
     isIncluded: boolean;
+    isDeleted:boolean | undefined;
 }
