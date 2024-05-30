@@ -27,3 +27,8 @@ export interface orderForManagement {
     operatorId: string | undefined;
     details: Array<orderDetailForManagement>;
 }
+
+export interface orderHistoryModel {
+    startDate: string;
+    endDate: string;
+}

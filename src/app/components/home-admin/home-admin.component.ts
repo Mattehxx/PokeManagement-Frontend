@@ -7,13 +7,14 @@ import { CommonModule } from '@angular/common';
 import { IngredientManagementComponent } from "../ingredient-management/ingredient-management.component";
 import { PageService } from '../../services/page.service';
 import { UserManagementComponent } from "../user-management/user-management.component";
+import { OrderManagementAdminComponent } from "../order-management-admin/order-management-admin.component";
 
 @Component({
     selector: 'app-home-admin',
     standalone: true,
     templateUrl: './home-admin.component.html',
     styleUrl: './home-admin.component.scss',
-    imports: [ProductManagementComponent, FormsModule, CommonModule, IngredientManagementComponent, UserManagementComponent]
+    imports: [ProductManagementComponent, FormsModule, CommonModule, IngredientManagementComponent, UserManagementComponent, OrderManagementAdminComponent]
 })
 export class HomeAdminComponent {
   
