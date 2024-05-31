@@ -5,6 +5,9 @@ import { GenericService } from '../../../services/generic.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ingredient } from '../../../models/ingredient.model';
+import { IngredientService } from '../../../services/ingredient.service';
+import { AlertService } from '../../../services/alert.service';
+import { productIngredient } from '../../../models/product-ingredient.model';
 @Component({
   selector: 'app-modal-add-product',
   standalone: true,
@@ -23,6 +26,8 @@ export class ModalAddProductComponent {
   @Output()
   getToAddProd = new EventEmitter<toAddProduct>()
 
+  ingredientsToAdd: Array<ingredient> = [];
+
   
   loadIngs(){
     this.toAddIngredients = this.ingredients.map(i=> ({
@@ -32,7 +37,7 @@ export class ModalAddProductComponent {
     }));
     return this.toAddIngredients;
   }
-  constructor(protected service:GenericService<toAddProduct>){
+  constructor(protected service:GenericService<toAddProduct>, public is: IngredientService, public alert: AlertService){
     this.toAdd = {
       id : 0,
       name: "",
@@ -43,7 +48,55 @@ export class ModalAddProductComponent {
       productIngredients: []
     }
     
+    this.is.getAll('Ingredient').subscribe({
+      next: (response) => {
+        this.is.allIngredients = response;
+        this.toAddIngredients = this.is.allIngredients.map(i => ({
+          id: i.id,
+          name: i.name,
+          confirm: false
+        }))
+      },
+      error: (error) => {
+        this.alert.showError('Errore, non è stato possibile recuperare gli ingredienti');
+        console.error(error);
+      }
+    })
   }
+
+
+  addIngredient(ingredient: ingredient) {
+    if(this.checkIfIngredientIsInList(ingredient)) {
+      this.alert.showWarning('Attenzione, ingrediente già aggiunto!');
+      return;
+    }
+
+    let newIngredient: productIngredient = {
+      amount: 1,
+      id: 0,
+      ingredientId: ingredient.id,
+      ingredientName: ingredient.name,
+      ingredientPrice: ingredient.additionalCost,
+      isDeleted: false,
+      isIncluded: true,
+      maxAllowed: 2,
+      productId: 0
+    };
+
+    this.toAdd.productIngredients.push(newIngredient);
+
+    console.log(this.toAdd.productIngredients);
+  }
+
+  removeIngredient(ingredient: ingredient) {
+    this.toAdd.productIngredients = this.toAdd.productIngredients.filter(i => i.ingredientId != ingredient.id);
+  }
+
+
+  checkIfIngredientIsInList(ingredient: ingredient) {
+    return this.toAdd.productIngredients.find(i => i.ingredientId === ingredient.id);
+  }
+
   emitProd(){
     this.getToAddProd.emit(this.toAdd);
   }
@@ -65,7 +118,7 @@ export class ModalAddProductComponent {
 
 
   open(content: TemplateRef<any>) {
-		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
+		this.modalService.open(content, { windowClass: 'modal-lg' }).result.then(
 			(result) => {
 				this.closeResult = `Closed with: ${result}`;
 			},

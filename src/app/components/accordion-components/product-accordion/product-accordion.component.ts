@@ -21,6 +21,8 @@ import { elementAt } from 'rxjs';
   imports: [NgbAccordionModule, FormsModule, CommonModule, NgbdModalBasic, ModalAddProductComponent]
 })
 export class ProductAccordionComponent {
+  @Input() title: string = '';
+  @Input() typeId: number = 0;
   @Input()
   products: Array<productAdmin> = [];
 
@@ -81,8 +83,16 @@ export class ProductAccordionComponent {
     this.toEdit = p;                   //e poi lo rimanda in output come toEdit a product-managemet-component
   }
   getToAdd(p: toAddProduct) {
-    //fare la post
-    //aggiungere a products
+    p.productTypeId = this.typeId;
+    this.basicService.post("Product/Add", p).subscribe({
+      next:(next)=>{
+        this.alertService.showSuccess('Prodotto aggiunto correttamente!');
+        //this.products.push()
+      },error:(error)=>{
+        console.error(error);
+        this.alertService.showError("prodotto non aggiunto");
+      }
+    })
   }
   logicalDelete() {
     let url = `Product/LogicalDelete/${this.toEdit.id}`;
@@ -119,10 +129,10 @@ export class ProductAccordionComponent {
   put() {
     this.service.put("Product/Edit", this.toEdit).subscribe({
       next: (Response) => {
-        let i = this.products.findIndex(ing => ing.id == Response.id);
+        /* let i = this.products.findIndex(ing => ing.id == Response.id);
         if (i > -1) {
           this.products[i] = Response;
-        }
+        } */
         this.alertService.showSuccess("prodotto modificato correttamente");
       }, error: (error) => {
         console.log(error);
