@@ -5,50 +5,44 @@
             (click)="modal.dismiss('Cross click')"></button>
     </div>
     <div class="modal-body">
-        <form>
-            <div class="mb-3">
-                <label for="name">Nome:</label>
-                <div class="input-group">
-                    <input type="text" name="name">
+            <div class="d-flex flex-column justify-content-center align-items-start gap-3 mb-3">
+                <div class="d-flex flex-row justify-content-start align-items-center gap-2">
+                    <label for="name">Nome:</label>
+                    <input type="text" name="name" class="form-control" [(ngModel)]="toAdd.name">
+                </div>
+                <div class="d-flex flex-column justify-content-center align-items-start gap-3 mb-3">
                     <label for="description">Descrizione:</label>
-                    <br>
                     <textarea name="description" class="form-control" aria-label="With textarea"
                         [(ngModel)]="toAdd.description"></textarea>
-                    <!--product type aggiungere in automatico in base alla sezione @input??-->
-                    <!--foreach ingredient ul list di bootstrap-->
-                    <ul class="list-group list-group-light">
-                        <li class="list-group-item">
-                            <input class="form-check-input me-1" type="checkbox" value="" aria-label="..." />
-                            First checkbox
-                        </li>
-                        <li class="list-group-item">
-                            <input class="form-check-input me-1" type="checkbox" value="" aria-label="..." />
-                            Second checkbox
-                        </li>
-                        <li class="list-group-item">
-                          <input class="form-check-input me-1" type="checkbox" value="" aria-label="..." />
-                          Third checkbox
-                        </li>
-                        <li class="list-group-item">
-                          <input class="form-check-input me-1" type="checkbox" value="" aria-label="..." />
-                          Fourth checkbox
-                        </li>
-                        <li class="list-group-item">
-                          <input class="form-check-input me-1" type="checkbox" value="" aria-label="..." />
-                          Fifth checkbox
-                        </li>
-                    </ul>
                 </div>
+                <!--product type aggiungere in automatico in base alla sezione @input??-->
+                <!--foreach ingredient ul list di bootstrap-->
+                <h5>Ingredienti:</h5>
+                <ul class="list-group list-group-light">
+                    <li class="list-group-item" *ngFor="let ingredient of this.is.allIngredients">
+                        {{ingredient.name}}
+                        <button class="btn btn-primary ms-5" [disabled]="!checkIfIngredientIsInList(ingredient)"
+                            (click)="removeIngredient(ingredient)">
+                            -
+                        </button>
+
+                        <button class="btn btn-primary ms-2" [disabled]="checkIfIngredientIsInList(ingredient)" 
+                            (click)="addIngredient(ingredient)">
+                            +
+                        </button>
+                    </li>
+                </ul>
+
             </div>
-        </form>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-dark" (click)="modal.close('Save click')">Annulla</button>
-        <button type="button" class="btn btn-outline-danger" style="background-color: rgba(242, 10, 10, 0.738);color: black;"
+        <button type="button" class="btn btn-outline-danger"
+            style="background-color: rgba(242, 10, 10, 0.738);color: black;"
             (click)="modal.close('Save click');emitProd()">Aggiungi</button>
     </div>
 
 </ng-template>
-<button class="btn btn-lg btn-outline-primary" (click)="open(content)">
+<button class="btn btn-lg" (click)="open(content)">
     <i class="fa-solid fa-circle-plus fa-2xl" style="color: #03684a;"></i>
 </button>

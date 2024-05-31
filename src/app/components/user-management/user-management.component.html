@@ -1,0 +1,15 @@
+<div class="container">
+    <div class="d-flex flex-column justify-content-start align-items-center gap-2 mb-3">
+        <div class="d-flex flex-row justify-content-start align-items-center gap-4 w-100">
+            <h1 class="d-flex">Gestione utenti</h1>
+            <div class="form-check form-switch d-flex flex-row justify-content-center align-items-center gap-2">
+                <input class="form-check-input d-flex" type="checkbox" role="switch" [(ngModel)]="this.us.showDeleted" (change)="this.us.setFilteredList()">
+                <label class="form-check-label d-flex">Mostra eliminati</label>
+            </div>
+            <app-modal-add-user></app-modal-add-user>
+        </div>
+        <input type="text" class="form-control" [(ngModel)]="this.us.textInp" placeholder="Cerca un utente" (input)="this.us.setFilteredList()">
+    </div>
+    
+    <app-user-accordion></app-user-accordion>
+</div>

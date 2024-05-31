@@ -22,6 +22,7 @@ export class OrderService extends GenericService<order> {
     personalizations: Array<personalization>;
     orderDetails: Array<orderDetail>;
     order: order | undefined;
+    discountValue: number = 0.05;
 
     constructor(http: HttpClient, as: AuthService, public alert: AlertService, public ps: ProductService, public ot: OrderTypeService, public pageServ: PageService) {
         super(http, as);
@@ -35,6 +36,17 @@ export class OrderService extends GenericService<order> {
             return 0;
 
         return this.roundTo2Decimal(this.cart.map(p => p.price).reduce((partial, curr) => partial + curr, 0));
+    }
+
+    getDiscountedPrice(): number {
+        if (!this.cart)
+            return 0;
+
+        const currentPrice = this.getCurrentPrice()
+        if (currentPrice === 0)
+            return 0;
+
+        return this.roundTo2Decimal(currentPrice - (currentPrice * this.discountValue));
     }
 
     getCurrentElements(): number {
@@ -82,13 +94,24 @@ export class OrderService extends GenericService<order> {
 
     private computeOrderDetails() {
         this.orderDetails = [];
+        let isRemoved = false;
+        let valueToRemove = 0; 
+        if(this.as.isLogged && !this.as.isOperator)
+            valueToRemove = this.getCurrentPrice() - this.getDiscountedPrice();
+
         this.cart.forEach(p => {
+            let newPrice = p.price;
+            if(!isRemoved && p.price >= valueToRemove) {
+                newPrice -= valueToRemove;
+                isRemoved = true;
+            }
+
             this.orderDetails.push({
                 id: 0,
                 orderId: 0,
                 amount: 1,
                 productId: p.id,
-                price: p.price,
+                price: newPrice,
                 personalizations: this.personalizations.filter(pers => pers.productCartId === p.productCartId).map(pers => ({
                     id: pers.id,
                     amount: pers.amount,
@@ -130,9 +153,8 @@ export class OrderService extends GenericService<order> {
         if(!this.as.isOperator)
             this.as.logout();
 
-        this.pageServ.isInCartPage = false;
-        this.pageServ.isInLoginPage = false;
-        this.pageServ.isInRegisterPage = false;
+        this.as.loginDenied = false;
+        this.pageServ.returnToHomePage();
 
         this.cart = [];
         this.personalizations = [];

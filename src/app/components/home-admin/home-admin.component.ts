@@ -5,20 +5,20 @@ import { ProductManagementComponent } from "../product-management/product-manage
 import { FormsModule } from '@angular/forms'
 import { CommonModule } from '@angular/common';
 import { IngredientManagementComponent } from "../ingredient-management/ingredient-management.component";
+import { PageService } from '../../services/page.service';
+import { UserManagementComponent } from "../user-management/user-management.component";
+import { OrderManagementAdminComponent } from "../order-management-admin/order-management-admin.component";
 
 @Component({
     selector: 'app-home-admin',
     standalone: true,
     templateUrl: './home-admin.component.html',
     styleUrl: './home-admin.component.scss',
-    imports: [ProductManagementComponent, FormsModule, CommonModule, IngredientManagementComponent]
+    imports: [ProductManagementComponent, FormsModule, CommonModule, IngredientManagementComponent, UserManagementComponent, OrderManagementAdminComponent]
 })
 export class HomeAdminComponent {
-  isProdViewMode: boolean = false;
-  isIngredientViewMode: boolean = false;
-  isUserViewMode: boolean = false;
-  idOrdersHistoryViewMode: boolean = false;
-  constructor() {
+  
+  constructor(protected ps:PageService) {
 
   }
 
@@ -29,26 +29,26 @@ export class HomeAdminComponent {
     this.resetViewMode();
     switch (name.toLowerCase()) {
       case 'products':
-        this.isProdViewMode = true;
+        this.ps.isProdViewMode = true;
         break;
       case 'ingredients':
-        this.isIngredientViewMode = true;
+        this.ps.isIngredientViewMode = true;
         break;
       case 'users':
-        this.isUserViewMode = true;
+        this.ps.isUserViewMode = true;
         break;
       case 'history':
-        this.idOrdersHistoryViewMode = true;
+        this.ps.idOrdersHistoryViewMode = true;
         break;
     }
   }
   resetViewMode() {
-    this.isProdViewMode = false;
-    this.isIngredientViewMode = false;
-    this.isUserViewMode = false;
-    this.idOrdersHistoryViewMode = false;
+    this.ps.isProdViewMode = false;
+    this.ps.isIngredientViewMode = false;
+    this.ps.isUserViewMode = false;
+    this.ps.idOrdersHistoryViewMode = false;
   }
   isNotViewMode(){
-    return !this.isIngredientViewMode && !this.idOrdersHistoryViewMode && !this.isProdViewMode && !this.isUserViewMode;
+    return !this.ps.isIngredientViewMode && !this.ps.idOrdersHistoryViewMode && !this.ps.isProdViewMode && !this.ps.isUserViewMode;
   }
 }

@@ -1,4 +1,4 @@
-<div class="d-flex flex-column gap-4 justify-content-center" *ngIf="isNotViewMode()">
+<div class="d-flex flex-column gap-4 justify-content-center align-items-center h-100" *ngIf="isNotViewMode()">
     <!-- <mat-card class="product-management">
         <mat-card-content>Gestione Prodotti</mat-card-content>
     </mat-card>
@@ -12,28 +12,28 @@
         <mat-card-content>Storico Ordini</mat-card-content>
     </mat-card> -->
     <div class="card" (click)="toggleViewMode('products')">
-        <div class="card-body text-center">
+        <div class="card-body d-flex justify-content-center align-items-center">
             <p class="card-title product-card-title">
                 Gestione Prodotti
             </p>
         </div>
     </div>
     <div class="card" (click)="toggleViewMode('ingredients')">
-        <div class="card-body text-center">
+        <div class="card-body d-flex justify-content-center align-items-center">
             <p class="card-title product-card-title">
                 Gestione Ingredienti
             </p>
         </div>
     </div>
     <div class="card" (click)="toggleViewMode('users')">
-        <div class="card-body text-center">
+        <div class="card-body d-flex justify-content-center align-items-center">
             <p class="card-title product-card-title">
                 Gestione Utenti
             </p>
         </div>
     </div>
     <div class="card" (click)="toggleViewMode('history')">
-        <div class="card-body text-center">
+        <div class="card-body d-flex justify-content-center align-items-center">
             <p class="card-title product-card-title">
                 Storico Ordini
             </p>
@@ -41,8 +41,8 @@
     </div>
 </div>
 <div class="managements">
-    <app-product-management *ngIf="isProdViewMode"></app-product-management>
-    <app-ingredient-management *ngIf="isIngredientViewMode"></app-ingredient-management>
-    <!-- <app-user-management *ngIf="isUserViewMode"></app-user-management>
-    <app-history-management *ngIf="idOrdersHistoryViewMode"></app-history-management> -->
+    <app-product-management *ngIf="ps.isProdViewMode"></app-product-management>
+    <app-ingredient-management *ngIf="ps.isIngredientViewMode"></app-ingredient-management>
+    <app-user-management *ngIf="ps.isUserViewMode"></app-user-management>
+    <app-order-management-admin *ngIf="ps.idOrdersHistoryViewMode"></app-order-management-admin>
 </div>

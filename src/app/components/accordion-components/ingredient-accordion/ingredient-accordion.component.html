@@ -16,9 +16,13 @@
     <div ngbAccordionItem [disabled]="item.isDeleted" *ngIf="!item.isDeleted || isDeletedShown"
         [ngStyle]="{'opacity': item.isDeleted ? 0.5 : 1}">
         <h2 ngbAccordionHeader>
-            <button (click)="getToEditIngredient(item)" ngbAccordionButton>Id: {{item.id}} {{ item.name }}</button>
+            <button class="d-flex flex-row justify-content-start align-items-center gap-4" (click)="getToEditIngredient(item)" ngbAccordionButton>
+                Id: {{item.id}} {{ item.name }} 
+                <i class="fa-solid fa-trash-can-arrow-up fa-xl d-flex" style="color: #03684a;" *ngIf="item.isDeleted"
+                    (click)="logicalRestore(item)"></i>
+            </button>
         </h2>
-        <div ngbAccordionCollapse>
+        <div ngbAccordionCollapse> 
             <div ngbAccordionBody>
                 <ng-template>
                     <label for="customRange3" class="form-label">Costo aggiuntivo</label>

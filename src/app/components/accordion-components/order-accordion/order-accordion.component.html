@@ -1,0 +1,32 @@
+<div ngbAccordion [closeOthers]="true">
+    <p class="text-muted">Codice prenotazione | Data di inserimento | Data di esecuzione</p>
+    <div ngbAccordionItem *ngFor="let order of this.os.filteredOrders">
+        <h2 ngbAccordionHeader>
+            <button ngbAccordionButton class="text-nowrap">
+                <strong>{{order.reservationCode}}</strong>&nbsp; |&nbsp; {{convertDate(order.insertDate, false)}}&nbsp; |&nbsp; 
+                {{order.execDate != '' ? convertDate(order.execDate, false) : 'Da evadere'}}
+                {{order.isCompleted ? '' : 'Non evaso'}}
+            </button>
+        </h2>
+        <div ngbAccordionCollapse>
+            <div ngbAccordionBody class="d-flex flex-column justify-content-center align-items-start gap-2">
+                <div class="d-flex flex-row justify-content-between align-items-center w-100">
+                    <label class="d-flex">Tipo di ordine</label>
+                    <p class="d-flex m-0">{{order.orderType.description}}</p>
+                </div>
+                <div class="d-flex flex-row justify-content-between align-items-center w-100">
+                    <label class="d-flex">Data di inserimento</label>
+                    <p class="d-flex m-0">{{convertDate(order.insertDate)}}</p>
+                </div>
+                <div class="d-flex flex-row justify-content-between align-items-center w-100">
+                    <label class="d-flex">Data di esecuzione</label>
+                    <p class="d-flex m-0">{{order.execDate === '' ? '...' : convertDate(order.execDate)}}</p>
+                </div>
+                <div class="d-flex flex-row justify-content-between align-items-center w-100">
+                    <label class="d-flex">Effettuato da</label>
+                    <p class="d-flex m-0">{{order.mandatorId === '' || order.mandatorId == null ? 'Utente anonimo' : 'Utente registrato'}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

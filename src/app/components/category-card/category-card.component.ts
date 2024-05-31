@@ -33,7 +33,7 @@ export class CategoryCardComponent {
 	getProductsByType() {
 		this._ps.getByType(`Product/GetByCategoryId/${this.productType.id}`).subscribe({
 			next: (response) => {
-				this.products = response;
+				this.products = response.filter(r => !r.isDeleted);
 			}
 		});
 	}

@@ -1,20 +1,27 @@
-<div ngbAccordion [closeOthers]="true" *ngIf="products.length >= 1">
+<div ngbAccordion [closeOthers]="true">
     <div class="product-type d-flex justify-content-start align-items-center gap-3">
-        <h2 class="d-flex m-0">{{products[0].productType.description}}</h2>
+        <h2 class="d-flex m-0">{{title}}</h2>
         <div class="form-check form-switch d-flex align-items-end gap-2 m-0">
             <input class="form-check-input d-flex" type="checkbox"
-                id="flexSwitchCheckDefault {{products[0].productType.description}}" [(ngModel)]="isDeletedShown">
-            <label class="form-check-label d-flex" for="flexSwitchCheckDefault {{products[0].productType.description}}">
+                id="flexSwitchCheckDefault {{title}}" [(ngModel)]="isDeletedShown">
+            <label class="form-check-label d-flex">
                 mostra prodotti eliminati
             </label>
         </div>
-        <app-modal-add-product (getToAddProd)="getToAdd($event)"></app-modal-add-product>
+        <app-modal-add-product [ingredients]="allIngredients" [toAddIngredients]="mapIngredients()"
+            (getToAddProd)="getToAdd($event)"></app-modal-add-product>
     </div>
     @for (item of products; track item) {
-    <div ngbAccordionItem [disabled]="item.isDeleted" *ngIf="!item.isDeleted || isDeletedShown"
+    <div ngbAccordionItem [disabled]="item.isDeleted" *ngIf="!item.isDeleted || isDeletedShown && products.length >= 1"
         [ngStyle]="{'opacity': item.isDeleted ? 0.5 : 1}">
         <h2 ngbAccordionHeader>
-            <button (click)="getToEditProduct(item)" ngbAccordionButton>Id: {{item.id}} {{ item.name }}</button>
+            <button class="d-flex flex-row justify-content-start align-items-center gap-4"
+                (click)="getToEditProduct(item)" ngbAccordionButton>
+                Id: {{item.id}} {{ item.name }}
+                <i class="fa-solid fa-trash-can-arrow-up fa-xl d-flex" style="color: #03684a;" *ngIf="item.isDeleted"
+                    (click)="logicalRestore(item)"></i>
+            </button>
+
         </h2>
         <div ngbAccordionCollapse>
             <div ngbAccordionBody>
@@ -27,16 +34,28 @@
                     <label for="product-description">Descrizione</label>
                     <textarea name="product-description" class="form-control" aria-label="With textarea"
                         [(ngModel)]="toEdit.description"></textarea>
-                    <h3>ingredienti:</h3>
+                    <h3 *ngIf="toEdit.productIngredients.length > 0">ingredienti:</h3>
                     <div class="card product-ingredients-card d-flex flex-row justify-content-between align-items-center p-3"
-                        *ngFor="let ingredient of toEdit.productIngredients">
+                        *ngFor="let ingredient of toEdit.productIngredients"
+                        [ngStyle]="{'opacity':ingredient.isDeleted ? 0.5 : 1}">
                         <span>
                             {{ingredient.ingredientName}}
                         </span>
-                        <i class="fa-solid fa-trash fa-xl" style="color: #e01010;"></i>
+                        <button (click)="deleteIngredient(ingredient)"
+                            style="border: 0px;background-color: transparent;">
+                            <i *ngIf="!ingredient.isDeleted" class="fa-solid fa-trash fa-xl"
+                                style="color: #e01010;"></i>
+                        </button>
                     </div>
+                    <br>
+                    <!-- <div class="d-inline-flex">
+                        <select class="form-select w-25" id="sel1" name="sellist1" *ngFor="let ing of getIngredientsAdd()" [(ngModel)]="toAddIngredient">
+                            <option style="font-size: 10px;width: auto;">{{ing.name}}</option>
+                        </select>
+                        <button class="btn btn-primary " (click)="addToEditIng()">Aggiungi</button>
+                    </div> -->
                     <br><br>
-                    <app-modal-confirm></app-modal-confirm>
+                    <app-modal-confirm (confirm)="editAction($event)" [changes]="toEditString()"></app-modal-confirm>
                 </ng-template>
             </div>
         </div>

@@ -29,5 +29,10 @@
             <button class="btn btn-secondary btn-lg d-flex justify-content-center align-items-center text-center w-75"
                 (click)="showRegisterPage()">Registrati</button>
         </div>
+        <div *ngIf="!this.as.isLogged && this.ps.isLoginFromCartPage" class="d-flex flex-column justify-content-center align-items-center gap-2 w-100">
+            <h3 class="d-flex text-center m-0">Oppure prosegui all'ordine</h3>
+            <button class="btn btn-secondary btn-lg d-flex justify-content-center align-items-center text-center w-75"
+                (click)="this.ps.returnToCartPage()">Carrello</button>
+        </div>
     </div>
 </div>

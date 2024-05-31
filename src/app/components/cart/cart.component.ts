@@ -7,9 +7,9 @@ import { ProductService } from '../../services/product.service';
 import { product, productDetail } from '../../models/product.model';
 import { AlertService } from '../../services/alert.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import { productIngredient } from '../../models/product-ingredient.model';
 import { OrderTypeComponent } from "../order-type/order-type.component";
+import { AuthService } from '../../services/auth.service';
 
 @Component({
     selector: 'app-cart',
@@ -19,17 +19,24 @@ import { OrderTypeComponent } from "../order-type/order-type.component";
     imports: [CommonModule, FormsModule, FontAwesomeModule, OrderTypeComponent]
 })
 export class CartComponent {
-	faPlus = faPlus;
-	faMinus = faMinus;
 
-	constructor(public prodS: ProductService, public ps: PageService, public os: OrderService, public alert: AlertService) {}
+	constructor(public prodS: ProductService, public ps: PageService, public os: OrderService, public as: AuthService, public alert: AlertService) {}
 
 	getIncludedIngredients(product: productDetail): Array<productIngredient> {
 		return product.productIngredients.filter(i => i.isIncluded);
 	}
 
 	getNotIncludedIngredients(product: productDetail): Array<productIngredient> {
-		return product.productIngredients.filter(i => !i.isIncluded);
+		return product.productIngredients.filter(i => !i.isIncluded && !i.isDeleted);
+	}
+
+	doComputeCart() {
+		if(!this.as.isLogged && !this.as.loginDenied) {
+			this.ps.isLoginFromCartPage = true;
+			this.ps.returnToLoginPage();
+		}
+		else
+			this.os.computeOrder();
 	}
 
 	async removeProductFromCart(product: productDetail) {

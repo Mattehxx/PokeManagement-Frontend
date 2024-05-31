@@ -1,12 +1,12 @@
 <div class="card pokes" > <!--*ngFor="let item of pokes"-->
-    <app-product-accordion *ngIf="pokes.length >= 1" [products]="pokes"></app-product-accordion>
+    <app-product-accordion [products]="pokes" [title]="'Pokes'" [typeId]="2"></app-product-accordion>
 </div>
 <div class="card tacos">
-    <app-product-accordion *ngIf="tacos.length >= 1" [products]="tacos"></app-product-accordion>
+    <app-product-accordion [products]="tacos" [title]="'Tacos'" [typeId]="3"></app-product-accordion>
 </div>
 <div class="card drinks">
-    <app-product-accordion *ngIf="drinks.length >= 1" [products]="drinks"></app-product-accordion>
+    <app-product-accordion [products]="drinks" [title]="'Bevande'" [typeId]="1"></app-product-accordion>
 </div>
 <div class="card desserts">
-    <app-product-accordion *ngIf="desserts.length >= 1" [products]="desserts"></app-product-accordion>
+    <app-product-accordion [products]="desserts" [title]="'Desserts'" [typeId]="4"></app-product-accordion>
 </div>

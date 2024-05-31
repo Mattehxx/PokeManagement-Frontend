@@ -35,7 +35,7 @@ export class LoginComponent {
 		this.as.login(this.user).subscribe({
 			next: (response) => {
 				this.alert.showSuccess('Accesso effettuato!');
-				this.ps.isInLoginPage = false;
+				this.ps.returnToHomePage();
 			},
 			error: (error) => {
 				this.alert.showError('Non è stato possibile eseguire l\'accesso al profilo!');
